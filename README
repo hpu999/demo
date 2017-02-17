@@ -1,3 +1,5 @@
 convert.c 将字符串转换成整型数的函数
 IMX6DQCEC.pdf   I.MX6Q的技术手册(用户使用手册，各种功能的介绍)
 IMX6DQRM_v3.pdf I.MX6Q的完整的datasheet
+eim-interface-fpga-register-set.html     \  这是imx6q有关
+eim-interface-fpga-register-set_file     /  eim接口的配置 fpga

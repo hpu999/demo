@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" dir="ltr" class="js" lang="de"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>software:linux:toradex:eim [Infoportal]</title>
+    <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="software,linux,toradex,eim">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.ntb.ch/infoportal/lib/exe/opensearch.php" title="Infoportal">
+<link rel="start" href="https://wiki.ntb.ch/infoportal/">
+<link rel="contents" href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=index" title="Übersicht">
+<link rel="alternate" type="application/rss+xml" title="Letzte Änderungen" href="https://wiki.ntb.ch/infoportal/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Aktueller Namensraum" href="https://wiki.ntb.ch/infoportal/feed.php?mode=list&amp;ns=software:linux:toradex">
+<link rel="alternate" type="text/html" title="HTML Klartext" href="https://wiki.ntb.ch/infoportal/_export/xhtml/software/linux/toradex/eim">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="https://wiki.ntb.ch/infoportal/_export/raw/software/linux/toradex/eim">
+<link rel="canonical" href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim">
+<link rel="stylesheet" type="text/css" href="eim-interface-fpga-register-set_files/css.css">
+<script type="text/javascript">/*<![CDATA[*/var NS='software:linux:toradex';var JSINFO = {"id":"software:linux:toradex:eim","namespace":"software:linux:toradex"};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="eim-interface-fpga-register-set_files/js.php"></script>
+<script type="text/x-mathjax-config;executed=true">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="eim-interface-fpga-register-set_files/MathJax.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="https://wiki.ntb.ch/infoportal/lib/tpl/ntb2/images/favicon.ico">
+<link rel="apple-touch-icon" href="https://wiki.ntb.ch/infoportal/lib/tpl/ntb2/images/apple-touch-icon.png">
+    <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+    <div id="dokuwiki__site">
+        <div id="dokuwiki__top" class="dokuwiki site mode_show ">
+                
+        <!-- ********** HEADER ********** -->
+        <div id="dokuwiki__header">
+                <div class="headLogo">
+                    <a class="header-link" href="https://wiki.ntb.ch/infoportal/" title="Zurück auf die Startseite">
+                        <img src="eim-interface-fpga-register-set_files/bg_head_top_logo.gif">
+                        </a><h1><a class="header-link" href="https://wiki.ntb.ch/infoportal/" title="Zurück auf die Startseite"></a><a href="https://wiki.ntb.ch/infoportal/start" accesskey="h" title="[H]">Infoportal</a></h1>
+                    
+                </div>
+                <nav>
+                    <ul id="dokuwiki__navbar">
+                        
+                        <li class="item"><a class="action" href="http://www.ntb.ch/">NTB-Webseite</a>
+                        </li><li class="item"><a class="action" href="http://intranet.ntb.ch/intranet">Intranet</a>
+                        </li><li class="item"><a class="action" href="http://moodle.ntb.ch/">Moodle</a>
+                        </li><li class="item"><a class="action" href="http://wiki.ntb.ch/">NTB Wikis</a>
+                        </li><li class="item"><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=login&amp;sectok=e483cc680b79c1fe492bfcff3bb39944" class="action login" rel="nofollow" title="Anmelden">Anmelden</a> </li>
+                    </ul>
+                </nav>
+                
+
+            <div class="underHead">
+            <!-- BREADCRUMBS -->
+                                        <div class="breadcrumbs">
+                    <a href="http://www.ntb.ch/" class="wikilink1" title="Wikis">NTB</a> » <a href="https://wiki.ntb.ch/" class="wikilink1" title="Wikis">Wikis</a> » <a href="https://wiki.ntb.ch/infoportal/" class="wikilink1" title="Infoportal">Infoportal</a> <span class="bchead">Sie befinden sich hier: </span><span class="home"><bdi><a href="https://wiki.ntb.ch/infoportal/start" class="wikilink1" title="start">start</a></bdi></span> » <bdi><a href="https://wiki.ntb.ch/infoportal/software/start" class="wikilink1" title="software:start">software</a></bdi> » <bdi><a href="https://wiki.ntb.ch/infoportal/software/linux/start" class="wikilink1" title="software:linux:start">linux</a></bdi> » <bdi><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/start" class="wikilink1" title="software:linux:toradex:start">toradex</a></bdi> » <bdi><span class="curid"><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim" class="wikilink1" title="software:linux:toradex:eim">eim</a></span></bdi>                </div>
+                        <form action="/infoportal/start" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input name="do" value="search" type="hidden"><input id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" type="text"><input value="Suche" class="button" title="Suche" type="submit"><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>            </div>
+
+        </div>
+            
+        </div><!-- /header -->
+
+
+        <div class="wrapper">
+
+            <!-- ********** ASIDE ********** -->
+                <div id="dokuwiki__aside">
+                        <h1 class="block-header">Infoportal</h1>
+                            <ul class="menu-list">
+                                <li><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=recent" class="action recent" accesskey="r" rel="nofollow" title="Letzte Änderungen [R]">Letzte Änderungen</a></li>
+                                <li><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=edit" class="action source" accesskey="v" rel="nofollow" title="Zeige Quelltext [V]">Zeige Quelltext</a></li>
+                                <li><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=revisions" class="action revs" accesskey="o" rel="nofollow" title="Ältere Versionen [O]">Ältere Versionen</a></li>
+                                <li></li>
+								<li><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=backlink">Backlink</a></li>
+                            </ul>
+                                                    </div><!-- /aside -->
+
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad">
+                                
+                <div class="page">
+                    <!-- wikipage start -->
+                    
+<h1 id="toradex_colibri_imx6_-_eim_driver">Toradex Colibri i.MX6 - EIM driver</h1>
+<div class="level1">
+
+<p>
+Fetch and build flinklinux:
+</p>
+<pre class="code">$ cd $WD
+$ git clone https://github.com/flink-project/flinklinux.git -o upstream
+$ cd flinklinux
+$ make </pre>
+
+<p>
+The device tree file is compiled with the kernel. The output file is: <code>arch/arm/boot/dts/imx6dl-colibri-efs.dtb</code>
+This file has to be passed to the kernel during boot. The source of this
+ file was based on the device tree file of the eval board. The <code>weim</code> node was changed to reflect the hardware of the footplate. Instead of two SRAM modules an FPGA is connected to the EIM bus.
+</p>
+
+<p>
+The relevant part is listed here:
+</p>
+<pre class="code">&amp;weim {
+	status = "okay";
+	/* weim memory map: 32MB on CS0, 32MB on CS1, 32MB on CS2 */
+	ranges = &lt;0 0 0x08000000 0x02000000
+	          1 0 0x0a000000 0x02000000
+	          2 0 0x0c000000 0x02000000&gt;;
+	/* FPGA on CS0 */
+	fpga@0,0 {
+		compatible = "ntb,flink_eim_driver";
+		reg = &lt;0 0 0x00080000&gt;;
+		#address-cells = &lt;1&gt;;
+		#size-cells = &lt;1&gt;;
+		bank-width = &lt;2&gt;;
+		<span class="search_hit">fsl</span>,<span class="search_hit">weim-cs-timing</span> = &lt;0x07710081 0x00000100 0x04000000
+				0x00000000 0x04000040 0x00000000&gt;;
+	};
+};</pre>
+
+<p>
+The <em>ranges</em> property determines the memory areas for 3 chip selects. The size of each region is 32 <abbr title="Megabyte">MB</abbr>.
+ CS0 starts at 0x08000000 and is used for the FPGA. Only 512 KB are used
+ for the FPGA because the address width is 16 bit. The kernel module 
+maps the amount of memory which is in the <em>reg</em> property of the <em>fpga</em> node.
+</p>
+
+<p>
+The property <code><span class="search_hit">fsl</span>,<span class="search_hit">weim-cs-timing</span></code>
+ sets 6 configuration registers of the EIM bus (EIM_CS0GCR1, 
+EIM_CS0GCR2, EIM_CS0RCR1, EIM_CS0RCR2, EIM_CS0WCR1 and EIM_CS0WCR2).
+</p>
+
+<p>
+The <em>compatible</em> string determines which driver is loaded, in our case it's the <em>flink_eim.ko</em> kernel module (<code>ntb,flink_eim_driver</code>).
+</p>
+
+<p>
+This is the complete file:
+</p>
+<pre class="code">/*
+ * Copyright 2014 Toradex AG
+ * Copyright 2012 Freescale Semiconductor, Inc.
+ * Copyright 2011 Linaro Ltd.
+ *
+ * The code contained herein is licensed under the GNU General Public
+ * License. You may obtain a copy of the GNU General Public License
+ * Version 2 or later at the following locations:
+ *
+ * http://www.opensource.org/licenses/gpl-license.html
+ * http://www.gnu.org/copyleft/gpl.html
+ */
+
+/dts-v1/;
+
+#include &lt;dt-bindings/interrupt-controller/irq.h&gt;
+#include "imx6dl.dtsi"
+#include "imx6qdl-colibri.dtsi"
+
+/ {
+	model = "Toradex Colibri iMX6DL/S on EFS mainboard";
+	compatible = "toradex,colibri_imx6dl-eval", "toradex,colibri_imx6dl", "<span class="search_hit">fsl</span>,imx6dl";
+
+	aliases {
+		rtc0 = &amp;rtc_i2c;
+		rtc1 = "/soc/aips-bus@02000000/snvs@020cc000/snvs-rtc-lp@34";
+	};
+
+	aliases {
+		/* the following, together with kernel patches, forces a fixed assignment
+		   between device id and usdhc controller */
+		/* i.e. the eMMC on usdhc3 will be /dev/mmcblk0 */
+		mmc0 = &amp;usdhc3; /* eMMC */
+		mmc1 = &amp;usdhc1; /* MMC 4bit slot */
+	};
+
+	gpio-keys {
+		compatible = "gpio-keys";
+		pinctrl-names = "default";
+		pinctrl-0 = &lt;&amp;pinctrl_gpio_keys&gt;;
+
+		wakeup {
+			label = "Wakeup";
+			gpios = &lt;&amp;gpio2 22 GPIO_ACTIVE_HIGH&gt;;
+			linux,code = &lt;KEY_WAKEUP&gt;;
+			debounce-interval = &lt;10&gt;;
+			gpio-key,wakeup;
+		};
+	};
+
+	pwmleds {
+		compatible = "pwm-leds";
+		ledpwm2 {
+			label = "PWM&lt;B&gt;";
+			pwms = &lt;&amp;pwm1 0 50000&gt;;
+			max-brightness = &lt;255&gt;;
+		};
+
+		ledpwm3 {
+			label = "PWM&lt;C&gt;";
+			pwms = &lt;&amp;pwm4 0 50000&gt;;
+			max-brightness = &lt;255&gt;;
+		};
+
+		ledpwm4 {
+			label = "PWM&lt;D&gt;";
+			pwms = &lt;&amp;pwm2 0 50000&gt;;
+			max-brightness = &lt;255&gt;;
+		};
+	};
+
+	regulators {
+		reg_usb_host_vbus: usb_host_vbus {
+			status = "okay";
+		};
+	};
+};
+
+&amp;backlight {
+#if 0
+	/* PWM polarity: 1 is brightest */
+	brightness-levels = &lt;0 4 8 16 32 64 128 255&gt;;
+	default-brightness-level = &lt;6&gt;;
+#else
+	/* PWM plarity: 0 is brightest */
+	brightness-levels = &lt;0 74 128 164 192 210 255&gt;;
+	default-brightness-level = &lt;1&gt;;
+#endif
+	status = "okay";
+};
+
+/* Colibri SPI */
+&amp;ecspi4 {
+	status = "okay";
+
+	spidev0: spidev@1 {
+		compatible = "spidev";
+		reg = &lt;0&gt;;
+		spi-max-frequency = &lt;50000000&gt;;
+	};
+};
+
+&amp;hdmi_audio {
+	status = "okay";
+};
+
+&amp;hdmi_core {
+	status = "okay";
+};
+
+&amp;hdmi_video {
+	status = "okay";
+};
+
+/*
+ * I2C: I2C3_SDA/SCL on SODIMM pin 194/196 (e.g. RTC on carrier
+ * board)
+ */
+&amp;i2c3 {
+	status = "okay";
+#if 0 /* not standard pinout, disable PWM&lt;B&gt;, PWM&lt;C&gt;
+	pcap@10 {
+		/* TouchRevolution Fusion 7 and 10 multi-touch controller */
+		compatible = "touchrevolution,fusion-f0710a";
+		reg = &lt;0x10&gt;;
+		gpios = &lt;&amp;gpio1  9 0 /* SODIMM-28, Pen down interrupt */
+			 &amp;gpio2 10 0 /* SODIMM-30, Reset */
+			&gt;;
+	};
+#endif
+	/* M41T0M6 real time clock on carrier board */
+	rtc_i2c: rtc@68 {
+		compatible = "st,m41t00";
+		reg = &lt;0x68&gt;;
+	};
+};
+
+/*
+ * DDC_I2C: I2C2_SDA/SCL on MXM3 pin 205/207
+ */
+&amp;i2cddc {
+	status = "okay";
+
+	hdmi: edid@50 {
+		compatible = "<span class="search_hit">fsl</span>,imx6-hdmi-i2c";
+		reg = &lt;0x50&gt;;
+	};
+};
+
+&amp;iomuxc {
+	/*
+	 * Mux all pins which are unused to be GPIOs
+	 * so they are ready for export to user space
+	 */
+	pinctrl-names = "default";
+	pinctrl-0 = &lt;&amp;pinctrl_weim_gpio_1 &amp;pinctrl_weim_gpio_2
+	             &amp;pinctrl_weim_gpio_3 &amp;pinctrl_weim_gpio_4
+	             &amp;pinctrl_weim_gpio_5
+	             &amp;pinctrl_csi_gpio_1
+	             &amp;pinctrl_gpio_1
+	             &amp;pinctrl_usbh_oc_1 &amp;pinctrl_usbc_id_1
+	             &amp;pinctrl_usbc_det_1&gt;;
+};
+
+&amp;lcd {
+	status = "okay";
+};
+
+&amp;mxcfb1 {
+	status = "okay";
+};
+
+&amp;mxcfb2 {
+	status = "okay";
+};
+
+&amp;pwm1 {
+	status = "okay";
+};
+
+&amp;pwm2 {
+	status = "okay";
+};
+
+&amp;pwm3 {
+	status = "okay";
+};
+
+&amp;pwm4 {
+	status = "okay";
+};
+
+&amp;sound_hdmi {
+	status = "okay";
+};
+
+&amp;uart1 {
+	status = "okay";
+};
+
+&amp;uart2 {
+	status = "okay";
+#if 0
+	linux,rs485-enabled-at-boot-time;
+#endif
+};
+
+&amp;uart3 {
+	status = "okay";
+};
+
+&amp;usbh1 {
+	status = "okay";
+};
+
+&amp;usbotg {
+	status = "okay";
+};
+
+/* MMC */
+&amp;usdhc1 {
+	status = "okay";
+};
+
+&amp;weim {
+	status = "okay";
+	/* weim memory map: 32MB on CS0, 32MB on CS1, 32MB on CS2 */
+	ranges = &lt;0 0 0x08000000 0x02000000
+	          1 0 0x0a000000 0x02000000
+	          2 0 0x0c000000 0x02000000&gt;;
+	/* FPGA on CS0 */
+	fpga@0,0 {
+		compatible = "ntb,flink_eim_driver";
+		reg = &lt;0 0 0x00080000&gt;;
+		#address-cells = &lt;1&gt;;
+		#size-cells = &lt;1&gt;;
+		bank-width = &lt;2&gt;;
+		<span class="search_hit">fsl</span>,<span class="search_hit">weim-cs-timing</span> = &lt;0x07710081 0x00000100 0x04000000
+				0x00000000 0x04000040 0x00000000&gt;;
+	};
+};</pre>
+
+</div>
+
+                    <!-- wikipage stop -->
+                    <div class="clearer"></div>
+
+                </div>
+
+                                            </div></div><!-- /content -->
+
+            <div class="clearer"></div>
+            <hr class="a11y">
+
+            <!-- PAGE ACTIONS -->
+                            <div id="dokuwiki__pagetools">
+                    <h3 class="a11y">Seiten-Werkzeuge</h3>
+                    <ul>
+                        <li><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=edit" class="action source" accesskey="v" rel="nofollow" title="Zeige Quelltext [V]">Zeige Quelltext</a></li><li><bdi><a href="https://wiki.ntb.ch/infoportal/discussion/software/linux/toradex/eim" class="wikilink2" title="discussion:software:linux:toradex:eim" rel="nofollow">Diskussion</a></bdi></li><li><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=revisions" class="action revs" accesskey="o" rel="nofollow" title="Ältere Versionen [O]">Ältere Versionen</a></li><li><a href="https://wiki.ntb.ch/infoportal/software/linux/toradex/eim?do=backlink" class="action backlink" rel="nofollow" title="Links hierher">Links hierher</a></li><li><a href="#dokuwiki__top" class="action top" accesskey="t" rel="nofollow" title="Nach oben [T]">Nach oben</a></li>                    </ul>
+                </div>
+                    </div><!-- /wrapper -->
+
+        <!-- ********** FOOTER ********** -->
+        <div id="dokuwiki__footer"><div class="pad">
+        <div class="footer-left">Interstaatliche Hochschule für Technik Buchs NTB<br>Institut für Ingenieurinformatik</div>
+        <div class="footer-right"><a href="https://wiki.ntb.ch/infoportal/?do=index&amp;id=start">Uebersicht</a><br><bdi>software/linux/toradex/eim.txt</bdi> · Zuletzt geändert: 2015-06-30 16:11 von <bdi>abajric</bdi><br></div>
+        </div></div><!-- /footer -->
+
+            </div><!-- /site -->
+
+    <div class="no"><img src="eim-interface-fpga-register-set_files/indexer.gif" alt="" width="2" height="1"></div>
+    <!--[if ( IE 6 | IE 7 | IE 8 ) ]></div><![endif]-->
+
+
+</body></html>
