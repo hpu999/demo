@@ -1,0 +1,16 @@
+编译demo.c文件，成可执行文件hello 
+arm-linux-gcc -g -o hello hello.c
+
+1) environment
+   test program: hello
+   host ip: 192.168.1.100
+   target ip: 192.168.1.200
+2) run program on target board
+   gdbserver 192.168.1.100:1234 hello
+3) gdb on host
+   arm-linux-gdb 
+   (gdb) target remote 192.168.1.200:1234
+   (gdb) b main
+   (gdb) c
+	Continuing.
+  Note: because program run on target, so can not use 'r' to run program, use 'c' to continue program other commands are same as local gdb, such as 'l', 'p' and so on
