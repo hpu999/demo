@@ -4,3 +4,4 @@ IMX6DQRM_v3.pdf I.MX6Q的完整的datasheet
 eim-interface-fpga-register-set.html     \  这是imx6q有关
 eim-interface-fpga-register-set_file     /  eim接口的配置 fpga
 debug.txt       arm板上的应用程序在host PC上进行远程dbg调试的步骤
+ioctl.c			介绍ioctl函数的用法示例
