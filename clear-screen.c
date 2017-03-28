@@ -7,6 +7,8 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 
+#define FB_DEVICE "/dev/fb0"
+
 /* 视频卡的各个属性
  * struct fb_var_screeninfo {
  *     __u32 xres;            // visable resolution in the X axis
@@ -38,7 +40,7 @@ int main (int argc, char *argv[]) {
 	int ret;
 	
 	/* open video memory */
-	if ((fbfd = open ("/dev/fb1", O_RDWR)) < 0) {
+	if ((fbfd = open (FB_DEVICE, O_RDWR)) < 0) {
 		perror ("open");
 		exit (1);
 	}
@@ -58,22 +60,32 @@ int main (int argc, char *argv[]) {
 
 	/* size of frame buffer = (x-resolution * y-resoulation * bytes per pixel) */
 	fbsize = vinfo.xres * vinfo.yres * (vinfo.bits_per_pixel / 8);
+	
+	/* print the parament */
+	printf ("/* physical address \n");
+	printf ("framebuffer_start = 0x%08x \n", finfo.smem_start);
+	printf ("framebuffer_len = 0x%08x \n", finfo.smem_len);
+	printf ("mmio_start = 0x%08x \n", finfo.mmio_start);
+	printf ("mmio_len = 0x%08x \n", finfo.mmio_len);
+	printf ("display_xres = %d \n", vinfo.xres);
+	printf ("display_yres = %d \n", vinfo.yres);
+	printf ("display_bits = %d \n", vinfo.bits_per_pixel);
 
 	/* map video memory */
-	if ((fbbuf = mmap (0, fbsize, PROT_READ | PROT_WRITE, MAP_SHARED, 
+/*	if ((fbbuf = mmap (0, fbsize, PROT_READ | PROT_WRITE, MAP_SHARED, 
 							fbfd, 0)) == (void *)-1) {
 		perror ("mmap");
 		exit (3);
 	}
 	printf ("mmap successed. \n");
-
+*/
 	/* clear the screen */
-	for (i = 0; i < fbsize; ++i) {
+/*	for (i = 0; i < fbsize; ++i) {
 		*(fbbuf + i) = 0x0;
 	}
 
 	munmap (fbbuf, fbsize);
-	close (fbfd);
+*/	close (fbfd);
 
 	return 0;
 }
