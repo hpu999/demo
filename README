@@ -9,3 +9,6 @@ ioctl.c			介绍ioctl函数的用法示例                           /  linux-2.
 kthread.c       测试内核创建启动线程的方法，主要是针对高一点的内核版本
 				针对内核版本较低一点的使用kernel_thread () API 进行创建内核线程
 
+dma_mem_to_mem.c 是使用dma进行内存数据之间的拷贝实际例子
+				 包含 omap 和 imx6q 平台
+
