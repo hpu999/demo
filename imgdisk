@@ -1,0 +1,84 @@
+# 制作固件方法
+
+## 1 创建img文件
+```sh
+﻿sudo dd if=/dev/zero of=xrz.img bs=1M count=7580 #大小7.9G
+
+#966是通过sd卡总字节数7948206080 bytes   /255/63/512
+sudo sfdisk -D -H 255 -S 63 -C 966 xxxxxx.img <<EOF
+,9,0x0C,*
+,,,-
+EOF
+```
+
+## 2 img文件分区
+
+### 2.1 查看空闲的 loop设备
+```sh
+sudo losetup -f 
+```
+
+### 2.2 挂在img到loop设备
+```sh
+sudo losetup /dev/loop0 xxxxxx.img 
+```
+
+### 2.3 挂在img的分区
+```sh
+sudo kpartx -av /dev/loop0  
+```
+
+### 2.4 格式化第一分区为fat32
+```sh
+sudo mkfs.vfat -F 32 -n "boot" /dev/mapper/loop0p1 
+```
+
+### 2.5 格式化第二分区为ext3
+```sh
+sudo mke2fs -j -L "rootfs" /dev/mapper/loop0p2   
+```
+
+## 3 挂载分区
+```sh
+sudo mount /dev/mapper/loop0p1 /mnt/boot/
+
+sudo mount /dev/mapper/loop0p2 /mnt/rootfs/
+```
+
+
+
+## 4 将phascan的启动文件放在对应的分区
+
+### 4.1 如果是跳过系统选择界面需要操作以下
+* 将skip_select和resize2fs可执行文件拷贝到文件系统的/usr/bin 目录下
+* 将resizepartition和resizePartitio脚本拷贝到文件系统的/usr/bin 目录下
+* 修改文件系统中的/etc/init.d/VersionControl脚本;
+  * 将/home/tt/TT/version/splash & 注释掉;
+  * 在其下面一行添加 skip_select;
+  *在 rm /etc/rcS.d/S99Version 前一行添加 resizePartition		
+* 修改文件系统中的/etc/init.d/tt 脚本;
+  * 在 PIDFILE 前面一行添加 RESIZEFILE="/usr/bin/resizepartition";
+  * 在/home/tt/TT/osd.sh 下面一行添加
+```
+	if [ -e "RESIZEFILE"];
+	then
+		resizepartition	
+		mv /usr/bin/resizepartition /usr/bin/resizepartition.bak
+		sync
+	fi
+```
+
+### 4.2 如果是保留系统选择界面需要操作以下
+* 将resize2fs可执行文件拷贝到文件系统的/usr/bin 目录下
+* 将resizepartition和resizePartition脚本拷贝到文件系统的/usr/bin 目录下
+* 修改文件系统中的/etc/init.d/VersionControl脚本
+  * 在rm /etc/rcS.d/S99Version 前一行添加 resizePartition
+* 修改/home/tt/TT/Phascan 脚本 （没有想到好的方法，暂时使用。不影响使用）
+  * ./main_arm前一行添加 resizepartition
+
+## 5 卸载
+```sh
+sudo kpartx -d /dev/loop0
+
+sudo losetup -d /dev/loop0
+```
