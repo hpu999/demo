@@ -4,12 +4,18 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <signal.h>
 
 int fd1, fd2;
-int size;
+int size, size1, size2;
 char buff[1];
 char buff2[1];
 int cnt = 0;
+
+void my_func (int sign_no) {
+	printf ("signal ...\n");
+	exit (0);
+}
 
 int main (int argc, char* argv[]) {
 	if ((NULL == argv[1]) || (NULL == argv[2])) {
@@ -25,14 +31,22 @@ int main (int argc, char* argv[]) {
 	fd2 = open (argv[2], O_RDONLY);
 	if (fd2 < 0) {
 		perror ("Open file2 ");
-		return -1;
+		goto err1;
 	}
 	
-	size = lseek (fd1, 0, SEEK_END);
+	size1 = lseek (fd1, 0, SEEK_END);
 	lseek (fd1, 0, SEEK_SET);
+
+	size2 = lseek (fd2, 0, SEEK_END);
+	lseek (fd2, 0, SEEK_SET);
+
+	size = size1 > size2 ? size2 : size1;
 
 	int tmp = size;	
 	int res1, res2;
+
+	signal (SIGINT, my_func);
+//	signal (SIGQUIT, my_func);
 
 	while (tmp) {
 		memset (buff, 0, sizeof (buff));
@@ -60,6 +74,7 @@ int main (int argc, char* argv[]) {
 //			goto err;
 		} 
 	}
+	printf ("cnt = %d \n", cnt);
 	
 	close (fd1);
 	close (fd2);
@@ -67,7 +82,8 @@ int main (int argc, char* argv[]) {
 	return 0;
 
 err:
-	close (fd1);
 	close (fd2);
+err1:
+	close (fd1);
 	return -1;
 }
