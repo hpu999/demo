@@ -39,6 +39,10 @@ int main (int argc, char* argv[]) {
 
 	size2 = lseek (fd2, 0, SEEK_END);
 	lseek (fd2, 0, SEEK_SET);
+	
+	if (size1 - size2) {
+		printf ("%s \n", (size1 - size2) > 0 ? "第一个文件比第二个文件大" : "第二个文件比第一个文件大");
+	}
 
 	size = size1 > size2 ? size2 : size1;
 
