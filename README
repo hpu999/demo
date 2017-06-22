@@ -31,3 +31,5 @@ imgdisk         Ubuntu环境下,制作imgdisk的步骤
 compareFile.c   对比两个相似文件的区别，并将不一样的位置打印出来
 dopplerDisk.sh  制作镜像跟文件
 signal.c        增加linux系统编程的信号函数
+
+irq.c           基于 iMX6q 的 gpio 和 gpio 的中断编程
