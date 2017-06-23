@@ -37,3 +37,4 @@ irq.c           基于 iMX6q 的 gpio 和 gpio 的中断编程
 mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
 mmap_test.c     /        与mmap(映射)驱动的测试程序
 
+mkcard          脚本文件，主要是用来制作SD卡的脚本文件
