@@ -38,3 +38,6 @@ mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
 mmap_test.c     /        与mmap(映射)驱动的测试程序
 
 mkcard          脚本文件，主要是用来制作SD卡的脚本文件
+
+ARM_FPGA.pdf             ARM与FPGA通讯协议  \ Phascan仪器的整体架构
+memory_data_struct.pdf   内存布局与数据格式 / 和数流向 以及数据格式
