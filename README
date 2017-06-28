@@ -34,6 +34,9 @@ signal.c        增加linux系统编程的信号函数
 
 irq.c           基于 iMX6q 的 gpio 和 gpio 的中断编程
 
+time.c          内核中有关时间的API接口函数，内核层的休眠函数
+				可以测出调用获取时间函数的一次所要的时间,毫秒级
+
 mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
 mmap_test.c     /        与mmap(映射)驱动的测试程序
 
