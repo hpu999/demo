@@ -19,3 +19,13 @@ log 是内核错误的打印的错误信息
 ping的源码：
 main.cpp ping.h ping.cpp 
 
+
+字节对齐出错的常见例子
+字节没有对齐的简单的常见的例子：
+char wolf[] = "Like a wolf";
+char *p = &wolf[0];
+unsigned long l = *(unsigned long *)p;
+这个例子将一个指向char型的指针当作指向unsigned long型的指针来用，
+这回引起问题，因此此时会试图从一个并不能被4或8整除的内存地址上
+载入32位或64位的unsigned long型数据。
+
