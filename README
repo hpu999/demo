@@ -47,3 +47,6 @@ memory_data_struct.pdf   内存布局与数据格式 / 和数流向 以及数据
 
 
 QtDemo          存放一些Qt开发过程中有效的示例，或者工程中的源码
+
+ping            此文件是解决linux-2.6.32的pc机ping仪器死机的bug
+				修复过程，以及ping的源码

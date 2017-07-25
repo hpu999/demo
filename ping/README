@@ -1,0 +1,21 @@
+对于Phascan的ping死机BUG的修复, 将：
+在/linux/net/ipv4/icmp.c +829  参照如下修改
+
++ 829         struct icmphdr *p_icmphdr;
++ 830 
++ 831         p_icmphdr = icmp_hdr(skb);
++ 832         icmp_param.data.icmph.type = p_icmphdr->type;
++ 833         icmp_param.data.icmph.code = p_icmphdr->code;
++ 834         icmp_param.data.icmph.checksum = p_icmphdr->checksum;
++ 835         memcpy(&(icmp_param.data.icmph.un), &(p_icmphdr->un),
++ 836                             sizeof(icmp_param.data.icmph.un));
++ 837 
+- 830			icmp_param.data.icmph = *icmp_hdr(skb);
+
+
+文件说明：
+错误信息的分析:
+log 是内核错误的打印的错误信息
+ping的源码：
+main.cpp ping.h ping.cpp 
+
