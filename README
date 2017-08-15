@@ -50,3 +50,6 @@ QtDemo          存放一些Qt开发过程中有效的示例，或者工程中�
 
 ping            此文件是解决linux-2.6.32的pc机ping仪器死机的bug
 				修复过程，以及ping的源码
+
+parted          是gnu提供的分区相关的模块,里面的partprobe可以
+                更新系统的分区表(如果分区表有改变)
