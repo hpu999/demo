@@ -51,5 +51,9 @@ QtDemo          存放一些Qt开发过程中有效的示例，或者工程中�
 ping            此文件是解决linux-2.6.32的pc机ping仪器死机的bug
 				修复过程，以及ping的源码
 
-parted          是gnu提供的分区相关的模块,里面的partprobe可以
+parted/         是gnu提供的分区相关的模块,里面的partprobe可以
                 更新系统的分区表(如果分区表有改变)
+
+ext2/           是用以维护ext2，ext3和ext4档案系统的工具程序集。由于
+                ext2/3/4是绝大多数Linux发行版默认的文件系统，所以这
+                套工具集也包含在众多Linux发行版内

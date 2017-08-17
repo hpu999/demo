@@ -1,0 +1,31 @@
+DOWNLOAD:
+    http://download.chinaunix.net/download/0003000/2490.shtml
+
+BUILD steps:
+    $ tar -xvf e2fsprogs-1.42.5.tar.gz
+    $ cd e2fsprogs-1.42.5
+    $ mkdir arch release
+    $ cd release
+    $ ../configure --host=arm-angstrom-linux-gnueabi --prefix=$(pwd)/../arch --disable-device-mapper
+    $ make && make install 
+    $ cd ../arch
+	$ ls
+	bin  etc  include  lib  sbin  share
+	bin与sbin 可执行文件
+	include   头文件
+    lib       库文件
+
+SUMARY:
+
+e2fsprogs（又称为e2fs programs）是用以维护ext2，ext3和ext4档案系统的工具程序集。由于ext2/3/4是绝大多数Linux发行版默认的文件系统，所以这套工具集也包含在众多Linux发行版内。
+ 
+e2fsprogs包含以下独立的程式：
+e2fsck, ext2/3/4文件系统的fsck程序，用于检查文件系统的完整性。
+mke2fs, 用于创建ext2/3/4档案系统。
+resize2fs, 调整已建立的ext2/3/4档案系统的大小。
+tune2fs, 修改ext2/3/4档案系统的相关参数。
+dumpe2fs, 显示ext2/3/4档案系统的相关资讯。
+debugfs, 用于调试ext2/3/4文件系统，可以查看与更改文件系统的状态。
+ 
+e2fsprogs工具集同时也包含函数库libext2fs。
+The Ext2 Filesystem Utilities (e2fsprogs) contain all of the standard utilities for creating, fixing, configuring , and debugging ext2 filesystems. It provides the filesystem utilities for use with the ext2 filesystem. It also supports the ext3 and ext4 filesystems.
