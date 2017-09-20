@@ -3,3 +3,8 @@ prefix=/opt/yogurt/i.MX6-PD15.3.0/sysroots/cortexa9hf-vfp-neon-phytec-linux-gnue
 替换为:
 prefix=/usr 
 sed -i 's/prefix=\/opt\/yogurt\/i.MX6-PD15.3.0\/sysroots\/cortexa9hf-vfp-neon-phytec-linux-gnueabi\/usr/prefix=\/usr/g' `ls`
+
+. /opt/yogurt/i.MX6-PD15.3.0/environment-setup-cortexa9hf-vfp-neon-phytec-linux-gnueabi
+
+获取pwd文件所在的绝对目录(which 后的文件必须是在路径中的文件(通常是在可执行文件中))
+dirname `which pwd`   # /bin

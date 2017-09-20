@@ -1,0 +1,118 @@
+我利用此方法成功在UBUNTU 10.04下安装GTK 2.20.1。
+
+一、安装
+
+　　1、安装gcc/g++/gdb/make 等基本编程工具
+
+$sudo apt-get install build-essential
+
+　　2、安装 libgtk2.0-dev libglib2.0-dev 等开发相关的库文件
+
+$sudo apt-get install gnome-core-devel 
+
+　　3、用于在编译GTK程序时自动找出头文件及库文件位置　　
+
+$sudo apt-get install pkg-config
+
+　　4、安装 devhelp GTK文档查看程序
+
+$sudo apt-get install devhelp
+
+　　5、安装 gtk/glib 的API参考手册及其它帮助文档
+
+$sudo apt-get install libglib2.0-doc libgtk2.0-doc
+
+　　6、安装基于GTK的界面GTK是开发Gnome窗口的c/c++语言图形库 
+
+$sudo apt-get install glade libglade2-dev
+
+或者
+
+$sudo apt-get install glade-gnome glade-common glade-doc
+
+　　7、安装gtk2.0 或者 将gtk+2.0所需的所有文件统通下载安装完毕
+
+$sudo apt-get install libgtk2.0-dev
+
+或者
+
+$sudo apt-get install libgtk2.0*
+
+　　
+
+二、查看GTK库版本
+
+　　1、查看1.2.x版本
+
+$pkg-config --modversion gtk+
+
+　　2、查看 2.x 版本
+
+$pkg-config --modversion gtk+-2.0
+
+　　3、查看pkg-config的版本
+
+$pkg-config --version
+
+　　4、查看是否安装了gtk
+
+$pkg-config --list-all grep gtk
+
+　　
+
+三、测试程序
+复制代码
+
+//Helloworld.c
+
+#include <gtk/gtk.h>
+
+int main(int argc,char *argv[])
+{
+    GtkWidget    *window;
+    GtkWidget    *label;
+    
+    gtk_init(&argc,&argv);
+    
+    /* create the main, top level, window */
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    
+    /* give it the title */
+    gtk_window_set_title(GTK_WINDOW(window),"Hello World");
+    
+    /* connect the destroy signal of the window to gtk_main_quit
+     * when the window is about to be destroyed we get a notification and
+     * stop the main GTK+ loop
+     */
+    g_signal_connect(window,"destroy",G_CALLBACK(gtk_main_quit),NULL);
+    
+    /* create the "Hello, World" label */
+    label = gtk_label_new("Hello, World");
+    
+    /* and insert it into the main window */
+    gtk_container_add(GTK_CONTAINER(window),label);
+    
+    /* make sure that everything, window and label, are visible */
+    gtk_widget_show_all(window);
+    
+    /* start the main loop, and let it rest until the application is closed */
+    gtk_main();
+    
+    return 0;
+} 
+
+复制代码
+
+　　
+
+四、编译运行
+
+　　1、编译
+
+$gcc -o Helloworld Helloworld.c `pkg-config --cflags --libs gtk+-2.0`
+
+　　2、运行
+
+$./Helloworld
+
+
