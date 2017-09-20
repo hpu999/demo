@@ -1,0 +1,5 @@
+将当前目录下所有的文件内的:
+prefix=/opt/yogurt/i.MX6-PD15.3.0/sysroots/cortexa9hf-vfp-neon-phytec-linux-gnueabi/usr
+替换为:
+prefix=/usr 
+sed -i 's/prefix=\/opt\/yogurt\/i.MX6-PD15.3.0\/sysroots\/cortexa9hf-vfp-neon-phytec-linux-gnueabi\/usr/prefix=\/usr/g' `ls`

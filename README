@@ -57,3 +57,7 @@ parted/         是gnu提供的分区相关的模块,里面的partprobe可以
 ext2/           是用以维护ext2，ext3和ext4档案系统的工具程序集。由于
                 ext2/3/4是绝大多数Linux发行版默认的文件系统，所以这
                 套工具集也包含在众多Linux发行版内
+
+doppler         存放一些工具和资料
+
+shell.txt       工作中经常使用的那些shell命令，有不方便记的
