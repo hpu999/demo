@@ -61,6 +61,10 @@ ext2/           是用以维护ext2，ext3和ext4档案系统的工具程序集�
 
 gtk-demo        存放gtk安装 配置 测试gtk库安装成功与否
 
+update.sh       更新sd卡中的程序
+
+scp.sh          从pc机传文件到仪器或者开发板
+
 comment.sh      整体替换文本中某一行的脚本程序
 
 doppler         存放一些工具和资料
