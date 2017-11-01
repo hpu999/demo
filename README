@@ -70,3 +70,7 @@ comment.sh      整体替换文本中某一行的脚本程序
 doppler         存放一些工具和资料
 
 shell.txt       工作中经常使用的那些shell命令，有不方便记的
+
+eval.sh         从字符串拼接的变量名中取值
+
+qt移植.docx     qt4的检查编译，移植
