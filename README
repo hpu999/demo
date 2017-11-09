@@ -29,7 +29,11 @@ system.c        程序中执行某个shell命令的退出状态，包含这条sh
 access.c        判断文件是是否存在,F_OK 测试文件是否存在,R_OK/W_OF/X_OK测试文件的读/写/执行权限
 imgdisk         Ubuntu环境下,制作imgdisk的步骤
 compareFile.c   对比两个相似文件的区别，并将不一样的位置打印出来
-dopplerDisk.sh  制作镜像跟文件
+
+dopplerDisk.sh   \    制作镜像跟文件
+make_tarball.sh   |   ubuntu环境下烧写的程序包
+make_zipball.sh  /    windows 环境下烧写的程序包
+
 signal.c        增加linux系统编程的信号函数
 
 irq.c           基于 iMX6q 的 gpio 和 gpio 的中断编程
