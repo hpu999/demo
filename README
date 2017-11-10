@@ -44,6 +44,8 @@ time.c          内核中有关时间的API接口函数，内核层的休眠函�
 mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
 mmap_test.c     /        与mmap(映射)驱动的测试程序
 
+psplash.zip     挂载文件系统的启动界面，进度条是几个小点
+
 mkcard          脚本文件，主要是用来制作SD卡的脚本文件
 
 ARM_FPGA.pdf             ARM与FPGA通讯协议  \ Phascan仪器的整体架构
