@@ -43,8 +43,17 @@ time.c          内核中有关时间的API接口函数，内核层的休眠函�
 
 mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
 mmap_test.c     /        与mmap(映射)驱动的测试程序
+mmap_copy.c     使用mmap功能复制巨型文件
 
 psplash.zip     挂载文件系统的启动界面，进度条是几个小点
+				/*  将自己的图片文件转换成.h文件
+				 *  $ make-image-header.sh <PicturePath>
+				 *  配置交叉编译器
+				 *  $ make
+				 *  psplash psplash-write 复制到/usr/bin目录下
+				 *  然后添加到第一个启动脚本中
+				 */
+
 
 mkcard          脚本文件，主要是用来制作SD卡的脚本文件
 
