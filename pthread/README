@@ -1,0 +1,95 @@
+一、Linux环境下的线程
+
+　　相对于其他操作系统，Linux系统内核只提供了轻量级进程的支持，并未实现线程模型。Linux是一种“多进程单线程”的操作系统，Linux本身只有进程的概念，而其所谓的“线程”本质上在内核里仍然是进程。
+
+     进程是资源分配的单位，同一进程中的多个线程共享该进程的资源（如作为共享内存的全局变量）。Linux中所谓的“线程”只是在被创建时clone了父进程的资源，因此clone出来的进程表现为“线程”，这一点一定要弄清楚。因此，Linux“线程”这个概念只有在打引号的情况下才是最准确的。
+
+　　目前Linux中最流行的线程机制为LinuxThreads，所采用的就是线程－进程“一对一”模型，调度交给核心，而在用户级实现一个包括信号处理在内的线程管理机制。LinuxThreads由Xavier Leroy负责开发完成，并已绑定在GLIBC中发行，它实现了一种BiCapitalized面向Linux的Posix 1003.1c “pthread”标准接口。Linuxthread可以支持Intel、Alpha、MIPS等平台上的多处理器系统。 
+
+　　需要注意的是，Linuxthread线程模型存在一些缺陷，尤其是在信号处理、调度和进程间同步原语方面都存在问题。并且，这个线程模型也不符合POSIX标准的要求。为了解决LinuxThread的缺陷，RedHat开发了一套符合POSIX标准的新型线程模型：NPTL（Native POSIX Thread Library）。关于Linuxthread与NPTL的比较，请参考文章：Linux 线程模型的比较：LinuxThreads 和 NPTL。
+
+二、Linux环境下的多线程编译支持
+
+　　按照POSIX 1003.1c 标准编写的程序与Linuxthread 库相链接即可支持Linux平台上的多线程，在程序中需包含头文件pthread. h，在编译链接时使用命令：
+
+gcc -D -REENTRANT -lpthread xxx. c
+　　其中-REENTRANT宏使得相关库函数(如stdio.h、errno.h中函数) 是可重入的、线程安全的(thread-safe)，-lpthread则意味着链接库目录下的libpthread.a或libpthread.so文件。　　
+
+　　在一个多线程程序里，默认情况下，只有一个errno变量供所有的线程共享。在一个线程准备获取刚才的错误代码时，该变量很容易被另一个线程中的函数调用所改变。类似的问题还存在于fputs之类的函数中，这些函数通常用一个单独的全局性区域来缓存输出数据。
+
+       为解决这个问题，需要使用可重入的例程。可重入代码可以被多次调用而仍然工作正常。编写的多线程程序，通过定义宏_REENTRANT来告诉编译器我们需要可重入功能，这个宏的定义必须出现于程序中的任何#include语句之前。
+
+       _REENTRANT为我们做三件事情，并且做的非常优雅：
+
+（1）它会对部分函数重新定义它们的可安全重入的版本，这些函数名字一般不会发生改变，只是会在函数名后面添加_r字符串，如函数名gethostbyname变成gethostbyname_r。
+
+（2）stdio.h中原来以宏的形式实现的一些函数将变成可安全重入函数。
+
+（3）在error.h中定义的变量error现在将成为一个函数调用，它能够以一种安全的多线程方式来获取真正的errno的值。
+
+三、Linux环境下的多线程函数
+
+ 3.1 线程创建
+
+　　在进程被创建时，系统会为其创建一个主线程，而要在进程中创建新的线程，则可以调用pthread_create函数：
+
+#include <pthread.h>
+int pthread_create(pthread_t *thread, pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
+　　参数说明：
+
+thread：指向pthread_create类型的指针，用于引用新创建的线程。
+attr：用于设置线程的属性，一般不需要特殊的属性，所以可以简单地设置为NULL。
+start_routine：传递新线程所要执行的函数地址。
+arg：新线程所要执行的函数的参数。
+　　返回值：
+
+　　调用如果成功，则返回值是0；如果失败则返回错误代码。
+
+　　每个线程都有自己的线程ID，以便在进程内区分。线程ID在pthread_create调用时回返给创建线程的调用者；一个线程也可以在创建后使用pthread_self()调用获取自己的线程ID： 
+
+pthread_self (void);
+3.2 线程退出
+
+　　线程的退出方式有三种：
+
+（1）执行完成后隐式退出；
+
+（2）由线程本身显示调用pthread_exit 函数退出；
+
+pthread_exit (void * retval);
+ 
+
+（3）被其他线程用pthread_cance函数终止：
+
+pthread_cancel (pthread_t thread);
+ 
+
+　　如果一个线程要等待另一个线程的终止，可以使用pthread_join函数，该函数的作用是调用pthread_join的线程将被挂起直到线程ID为参数thread的线程终止：
+
+pthread_join (pthread_t thread, void** threadreturn);
+
+
+3.3 简单的多线程示例
+
+　　一个简单的Linux多线程示例： thread.c
+
+编译语句如下：
+
+gcc -D_REENTRANT thread1.c -o thread1 –lpthread
+　　输出结果是：
+
+$./thread1[输出]：
+thread_function is running. Argument was Hello World
+Waiting for thread to finish...
+Thread joined, it returned Thank you for your CPU time!
+Message is now Bye!
+ 
+
+　　在这个例子中，pthread_exit(void *retval)本身返回的就是指向某个对象的指针，因此，pthread_join(pthread_t th, void **thread_return);中的thread_return是二级指针，指向线程返回值的指针。可以看到，我们创建的新线程修改的数组message的值，而原先的线程也可以访问该数组。如果我们调用的是fork而不是pthread_create，就不会有这样的效果了。因为fork创建子进程之后，子进程会拷贝父进程，两者分离，相互不干扰，而线程之间则是共享进程的相关资源。
+
+ 
+
+小结：
+
+　　本文主要讲了Linux环境下的多线程基本概念，包括多线程的实现方式、函数接口、功能特性等。
+
