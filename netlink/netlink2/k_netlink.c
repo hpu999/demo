@@ -77,6 +77,7 @@ netlink_input(struct sk_buff *__skb)
 			msleep (1000);
 			netlink_send(nlh->nlmsg_pid, NLMSG_DATA(nlh), nlh->nlmsg_len - NLMSG_SPACE(0));
 		}
+		kfree_skb (__skb);
         return;
 }
 
