@@ -16,7 +16,8 @@
 #include <linux/io.h>
 #include <linux/delay.h>
 
-#define DEVICE_NAME "gpio_test"
+#define DEVICE_NAME "gpio"
+#define CLASS_NAME "gpio_test"
 
 static int gMajor; /* major number of device */
 static struct class *gpio_class;
@@ -74,7 +75,7 @@ int __init gpio_init_module(void)
 	gMajor = error;
 	printk("gpio test major number = %d\n",gMajor);
 
-	gpio_class = class_create(THIS_MODULE, DEVICE_NAME);
+	gpio_class = class_create(THIS_MODULE, CLASS_NAME);
 	if (IS_ERR(gpio_class)) {
 		printk(KERN_ERR "Error creating register test module class.\n");
 		unregister_chrdev(gMajor, DEVICE_NAME);
