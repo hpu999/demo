@@ -100,3 +100,6 @@ dnw4linux       dnw工具用于usb烧写镜像
 				Makefile多目录编程
 
 file/           在内核态进行读写文件
+
+wait_queue/     等待队列机制的示例
+
