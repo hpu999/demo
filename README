@@ -103,3 +103,4 @@ file/           在内核态进行读写文件
 
 wait_queue/     等待队列机制的示例
 
+touchscreen/    增加hid触摸屏的驱动，型号对应[AMT],AD-P3007
