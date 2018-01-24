@@ -108,3 +108,5 @@ touchscreen/    增加hid触摸屏的驱动，型号对应[AMT],AD-P3007
 hid-button/     输入子系统之按键驱动(利用input-输入子系统编写普通按键驱动)
 
 FpgaUpgrade/    使用cpu更新FPGA程序，使用spi通信进行更新
+
+keyboard_mouse.c 在应用层模拟鼠标键盘的输入特性
