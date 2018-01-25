@@ -110,3 +110,7 @@ hid-button/     输入子系统之按键驱动(利用input-输入子系统编写
 FpgaUpgrade/    使用cpu更新FPGA程序，使用spi通信进行更新
 
 keyboard_mouse.c 在应用层模拟鼠标键盘的输入特性
+
+gpio_driver/    添加gpio驱动的操作
+
+ioctl_driver/   构造ioctl的命令的解析
