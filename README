@@ -116,3 +116,7 @@ gpio_driver/    添加gpio驱动的操作
 ioctl_driver/   构造ioctl的命令的解析
 
 Qtime/          QT get System Time
+
+usb/usb.c       基于libusb库的usb免驱通用程序
+                sudo apt-get install libusb-dev 
+                gcc usb.c -o usb -lusb
