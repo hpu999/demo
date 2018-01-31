@@ -121,3 +121,5 @@ usb/usb.c       基于libusb库的usb免驱通用程序
                 sudo apt-get install libusb-dev 
                 gcc usb.c -o usb -lusb
     usb2.c      针对识别到的usb设备根据ID进行配置，输入输出
+
+QSkin/myStylesheet/   QT自定义皮肤的功能
