@@ -123,3 +123,8 @@ usb/usb.c       基于libusb库的usb免驱通用程序
     usb2.c      针对识别到的usb设备根据ID进行配置，输入输出
 
 QSkin/myStylesheet/   QT自定义皮肤的功能
+
+shell/parttion        使用fdisk对块设备进行分区的脚本，需要辅助命令partprobe
+                      进行分区表的重新载入
+      mount_mmcblock3.sh  在系统启动时，进行挂载第三分区的执行脚本
+
