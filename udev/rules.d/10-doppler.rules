@@ -1,0 +1,5 @@
+# Doppler usb storage device IPC message
+
+# KERNEL=="sd*", BUS=="usb", ACTION=="add",    RUN+="/opt/TestUSB"
+KERNEL=="sd*", BUS=="usb", ACTION=="add",    SYMLINK+="usbStorageDoppler", RUN+="/etc/udev/scripts/ntfs.sh"
+KERNEL=="sd*",             ACTION=="remove", RUN+="/opt/TestUSB"
