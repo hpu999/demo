@@ -1,0 +1,80 @@
+翻译自：http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-fbdev-driver
+或者参考，本目录下的Xorg-Driver.html文件
+
+一：简介
+	xorg-server又称X11服务器，该软件是基于X协议的一种实现，这个服务器提供显
+示屏，鼠标，键盘，触摸屏的接口，我们只需要将这些接口的驱动库添加到X11这个软
+件中即可。在Xorg的有关的网站上也提供了一些显示屏(显卡)，鼠标，键盘，触摸屏
+的驱动库。
+要想移植这些驱动库，必须先将xorg编译安装成功。
+
+1. 显示屏的支持
+	fbdev：提供framebuffer设备驱动
+	在Phascan-II的平台上，显示屏的驱动是基于Xorg fbdev的驱动模块。
+将fbdev编译出来的fbdev_drv.so存放在xorg/modules/driver的目录下，在xorg
+启动的时候，就可以自动的将其模块进行加载。
+
+2. 鼠标，键盘，触摸屏的支持
+	evdev：提供linux通用鼠标，键盘，触摸屏，wacom设备驱动
+	在xorg移植成功后会生成 /usr/share/X11/xorg.conf.d 在这个目录下，可以
+看到10-evdev.conf配置文件，在这个配置文件是针对鼠标，键盘，触摸屏的驱动支
+持，Phascan-II的驱动平台则是使用的evdev的驱动支持。而evdev的移植则依赖
+于xf86-input-evdev，而xf86-input-evdev则是为鼠标，键盘，触摸屏提供输入的
+函数接口。
+	针对xf86-input-evdev，按正常的编译，安装方法移植xf86-input-evdev
+软件即可。
+	接下来我们才能移植evdev库，将evdev编译出来的evdev_drv.so存放
+在 xorg/modules/input的目录下，在xorg启动的时候就可以自动将其模块进行加载。
+
+3. 关于xorg配置
+	xorg的配置分为两部分：
+	第一部分：上边提到的xorg.conf.d这个目录下的配置文件，这个目录是xorg
+编译出来的目录，里面的信息都是默认的配置信息；
+	第二部分：/etc/X11/xorg.conf配置文件，这个配置文件是X.org的的一些高级
+置，其书写格式可以参考xorg.conf.d目录下的文件书写格式
+
+二：操作过程
+1. 移植Xorg-Server
+2. 移植Xorg Video Drivers
+	Xorg Fbdev Driver-0.4.4(xf86-video-fbdev-0.4.4.tar.bz2)这个是针对显示屏
+	Installation of Xorg Fbdev Driver
+	Install Xorg Fbdev Driver by running the following commands:
+		$ ./configure $XORG_CONFIG &&
+		$ make
+	This package does not come with a test suite.
+
+	Now, as the root user:
+		$ make install
+	Contents
+	Installed Xorg Driver:fbdev_drv.so
+	fbdev_drv.so is an Xorg video driver for framebuffer devices.
+
+3. 移植输入设备的驱动
+	移植libevdev-1.2.2和Xorg Evdev Driver-2.9.0
+ (1) libevdev-1.2.2.tar.xz
+	Install Libevdev by running the following commands:
+		$ ./configure $XORG_CONFIG &&
+		$ make
+	If you have the optional Check-0.9.14 package installed, the regression tests can be run as the root user with make check.
+
+	Now, as the root user:
+		$ make install
+	Contents
+	Installed Xorg Program:touchpad-edge-detector
+	Installed Xorg Library:libevdev.so
+	Short Descriptions
+	libevdev.so	is a library of Xorg driver input functions.
+ (2) xf86-input-evdev-2.9.0.tar.bz2
+	Installation of Xorg Evdev Driver
+	Install Xorg Evdev Driver by running the following commands:
+
+		$ ./configure $XORG_CONFIG &&
+		$ make
+	This package does not come with a test suite.
+	Now, as the root user:
+		$ make install
+	Contents
+	Installed Xorg Driver:evdev_drv.so
+	Short Descriptions
+	evdev_drv.so is an Xorg input driver for Linux generic event devices.
+

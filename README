@@ -139,3 +139,5 @@ udev/rules.d/10-doppler.rules  根据udev的规则实现U盘在仪器上的自�
                   这是10-doppler.rules TestUSB.c TestUSB2.c三个程序配合
 				  才实现的U盘自动挂载与卸载
 
+X11/README		详细的介绍了关于X11的video和input设备的驱动移植与编译过程
+	Xorg-Driver.html 英文原版的介绍				

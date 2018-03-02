@@ -1,0 +1,3846 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0079)http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-evdev-driver -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <title>
+      Xorg Drivers
+    </title>
+    <link rel="stylesheet" href="./Xorg-Driver_files/lfs.css" type="text/css">
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+    <link rel="stylesheet" href="./Xorg-Driver_files/lfs-print.css" type="text/css" media="print">
+  </head>
+  <body class="blfs" id="blfs-7.6">
+    <div class="navheader">
+      <h4>
+        Beyond Linux<sup>®</sup> From Scratch - Version 7.6
+      </h4>
+      <h3>
+        Chapter&nbsp;24.&nbsp;X Window System Environment
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Prev</a>
+          <p>
+            Xorg-Server-1.16.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/twm.html" title="twm-1.0.8">Next</a>
+          <p>
+            twm-1.0.8
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/installing.html" title="Chapter 24. X Window System Environment">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="http://www.linuxfromscratch.org/blfs/view/7.6/index.html" title="Beyond Linux® From Scratch - Version 7.6">Home</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="en" xml:lang="en">
+      <h1 class="sect1">
+        <a id="xorg7-driver" name="xorg7-driver"></a>Xorg Drivers
+      </h1>
+      <div class="package" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Introduction to Xorg Drivers
+        </h2>
+        <p>
+          The <span class="application">Xorg Drivers</span> page contains the
+          instructions for building Xorg drivers that are necessary in order
+          for Xorg Server to take the advantage of the hardware that it is
+          running on. At least one input and one video driver is required for
+          Xorg Server to start.
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="./Xorg-Driver_files/note.png">
+          <h3>
+            Note
+          </h3>
+          <p>
+            If you are unsure which video hardware you have, you can use
+            <span class="command"><strong>lspci</strong></span> from
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/pciutils.html" title="pciutils-3.2.1">pciutils-3.2.1</a> to find out which video
+            hardware you have and then look at the descriptions of the
+            packages in order to find out which driver you need.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-input-drivers" name="xorg-input-drivers"></a>Xorg
+            Input Drivers
+          </h3>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#libevdev" title="Libevdev 1.2.2">Libevdev-1.2.2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-evdev-driver" title="Xorg Evdev Driver-2.9.0">Xorg Evdev Driver-2.9.0</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-synaptics-driver" title="Xorg Synaptics Driver-1.8.0">Xorg Synaptics
+                  Driver-1.8.0</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-vmmouse-driver" title="Xorg VMMouse Driver-13.0.0">Xorg VMMouse
+                  Driver-13.0.0</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-wacom-driver" title="Xorg Wacom Driver-0.25.0">Xorg Wacom
+                  Driver-0.25.0</a>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-video-drivers" name="xorg-video-drivers"></a>Xorg
+            Video Drivers
+          </h3>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-ati-driver" title="Xorg ATI Driver-7.4.0">Xorg ATI Driver-7.4.0</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-cirrus-driver" title="Xorg Cirrus Driver-1.5.2">Xorg Cirrus
+                  Driver-1.5.2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-fbdev-driver" title="Xorg Fbdev Driver-0.4.4">Xorg Fbdev Driver-0.4.4</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-intel-driver" title="Xorg Intel Driver-2.99.916">Xorg Intel
+                  Driver-2.99.916</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-mach64-driver" title="Xorg Mach64 Driver-6.9.4">Xorg Mach64
+                  Driver-6.9.4</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-mga-driver" title="Xorg MGA Driver-1.6.3">Xorg MGA Driver-1.6.3</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-nouveau-driver" title="Xorg Nouveau Driver-1.0.11">Xorg Nouveau
+                  Driver-1.0.11</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-openchrome-driver" title="Xorg OpenChrome Driver-0.3.3">Xorg OpenChrome
+                  Driver-0.3.3</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-r128-driver" title="Xorg R128 Driver-6.9.2">Xorg R128 Driver-6.9.2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-savage-driver" title="Xorg Savage Driver-2.3.7">Xorg Savage
+                  Driver-2.3.7</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-sis-driver" title="Xorg SiS Driver-0.10.7">Xorg SiS Driver-0.10.7</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-tdfx-driver" title="Xorg 3Dfx Driver-1.4.5">Xorg 3Dfx Driver-1.4.5</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-vesa-driver" title="Xorg VESA Driver-2.3.3">Xorg VESA Driver-2.3.3</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#xorg-vmware-driver" title="Xorg VMware Driver-13.0.2">Xorg VMware
+                  Driver-13.0.2</a>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="hw-video-acceleration" name="hw-video-acceleration"></a>Hardware Video Acceleration
+          </h3>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#libva" title="libva-1.3.1">libva-1.3.1</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#libvdpau" title="libvdpau-0.8">libvdpau-0.8</a>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="libevdev" name="libevdev"></a>Libevdev 1.2.2
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Libevdev
+          </h3>
+          <p>
+            The <span class="application">Libevdev</span> package contains
+            common functions for Xorg input drivers.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://www.freedesktop.org/software/libevdev/libevdev-1.2.2.tar.xz">
+                  http://www.freedesktop.org/software/libevdev/libevdev-1.2.2.tar.xz</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 7c1ee9c2069489b2a25dfde6f8e2ff6a
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 380 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 8.2 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU (0.3 SBU with all tests)
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Libevdev Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/python2.html" title="Python-2.7.8">Python-2.7.8</a>
+          </p>
+          <h5>
+            Optional
+          </h5>
+          <p class="optional">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/check.html" title="Check-0.9.14">Check-0.9.14</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/doxygen.html" title="Doxygen-1.8.8">Doxygen-1.8.8</a>, and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/valgrind.html" title="Valgrind-3.10.0">Valgrind-3.10.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/libevdev">http://wiki.linuxfromscratch.org/blfs/wiki/libevdev</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="libevdev-kernel" name="libevdev-kernel"></a>Kernel
+            Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Input device support ---&gt;
+    Event interface: Y or M
+    Miscellaneous devices  ---&gt;
+      User level driver support: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Libevdev
+          </h3>
+          <p>
+            If <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/valgrind.html" title="Valgrind-3.10.0">Valgrind-3.10.0</a> is installed and tests are
+            going to be run, fix a testing problem:
+          </p>
+          <pre class="userinput"><kbd class="command">cat &gt;&gt; test/valgrind.suppressions &lt;&lt; "EOF"
+{
+   &lt;timer_create@@GLIBC_2.3.3-2&gt;
+   Memcheck:Param
+   timer_create(evp)
+   fun:timer_create@@GLIBC_2.3.3
+   fun:check_get_clockid
+   fun:srunner_run
+   fun:main
+}
+EOF</kbd>
+</pre>
+          <p>
+            Install <span class="application">Libevdev</span> by running the
+            following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            If you have the optional <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/check.html" title="Check-0.9.14">Check-0.9.14</a>
+            package installed, the regression tests can be run as the
+            <code class="systemitem">root</code> user with <strong class="userinput"><code>make check</code></strong>.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Program:</strong>
+                <span class="segbody">touchpad-edge-detector</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Library:</strong>
+                <span class="segbody">libevdev.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="libevdev-lib" name="libevdev-lib"></a><span class="term"><code class="filename">libevdev.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is a library of Xorg driver input functions.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-evdev-driver" name="xorg-evdev-driver"></a>Xorg Evdev
+          Driver-2.9.0
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Evdev Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Evdev Driver</span> package
+            contains Generic Linux input driver for the Xorg X server. It
+            handles keyboard, mouse, touchpads and wacom devices, though for
+            touchpad and wacom advanced handling, additional drivers are
+            required.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-input-evdev-2.9.0.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-input-evdev-2.9.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-input-evdev-2.9.0.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-input-evdev-2.9.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 9076ae2646f7aeb30963056e0bbfccf0
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 364 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 3.8 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: less than 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Evdev Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#libevdev" title="Libevdev 1.2.2">Libevdev-1.2.2</a> and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <h5>
+            Recommended
+          </h5>
+          <p class="recommended">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/mtdev.html" title="mtdev-1.1.5">mtdev-1.1.5</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-evdev-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-evdev-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Evdev Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Evdev Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">evdev_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="evdev_drv" name="evdev_drv"></a><span class="term"><code class="filename">evdev_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg input driver for Linux generic event
+                      devices.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-synaptics-driver" name="xorg-synaptics-driver"></a>Xorg
+          Synaptics Driver-1.8.0
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Synaptics Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Synaptics Driver</span>
+            package contains the X.Org Input Driver, support programs and SDK
+            for Synaptics touchpads. Even though the evdev driver can handle
+            touchpads very well, this driver is required if you want to use
+            advanced features like multi tapping, scrolling with touchpad,
+            turning the touchpad off while typing, etc.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-input-synaptics-1.8.0.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-input-synaptics-1.8.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-input-synaptics-1.8.0.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-input-synaptics-1.8.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 27a3f2b31606a13dd6b58d419978d64f
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 440 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 4.8 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: less than 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Synaptics Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#libevdev" title="Libevdev 1.2.2">Libevdev-1.2.2</a> and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-synaptics-driver">
+            http://wiki.linuxfromscratch.org/blfs/wiki/xorg-synaptics-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Synaptics Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Synaptics Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">sed -i '/_H_/ a#include &lt;xorg-server.h&gt;' src/{eventcomm,ps2comm,synproto}.h &amp;&amp;
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <span class="command"><strong>sed -i ...</strong></span>: This
+            sed fixes building with the latest version of <span class="application">Glibc</span>.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Programs:</strong>
+                <span class="segbody">synclient and syndaemon</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">synaptics_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="synclient" name="synclient"></a><span class="term"><span class="command"><strong>synclient</strong></span></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is a command line utility used to query and modify
+                      Synaptics driver options.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="syndaemon" name="syndaemon"></a><span class="term"><span class="command"><strong>syndaemon</strong></span></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is a program that monitors keyboard activity and
+                      disables the touchpad when the keyboard is being used.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="synaptics_drv" name="synaptics_drv"></a><span class="term"><code class="filename">synaptics_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg input driver for touchpads.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-vmmouse-driver" name="xorg-vmmouse-driver"></a>Xorg
+          VMMouse Driver-13.0.0
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg VMMouse Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg VMMouse Driver</span> package
+            contains the VMMouse input driver for the Xorg X server. The
+            VMMouse driver enables support for the special VMMouse protocol
+            that is provided by VMware virtual machines to give absolute
+            pointer positioning.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-input-vmmouse-13.0.0.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-input-vmmouse-13.0.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-input-vmmouse-13.0.0.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-input-vmmouse-13.0.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 34f9f64ee6a1a51fc8266a9af24e1e07
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 308 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 2.9 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: less than 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Additional Downloads
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Required patch: <a class="ulink" href="http://www.linuxfromscratch.org/patches/blfs/7.6/xf86-input-vmmouse-13.0.0-build_fix-1.patch">
+                  http://www.linuxfromscratch.org/patches/blfs/7.6/xf86-input-vmmouse-13.0.0-build_fix-1.patch</a>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg VMMouse Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-vmmouse-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-vmmouse-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg VMMouse Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg VMMouse Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">patch -Np1 -i ../xf86-input-vmmouse-13.0.0-build_fix-1.patch &amp;&amp;
+./configure $XORG_CONFIG               \
+            --without-hal-fdi-dir      \
+            --without-hal-callouts-dir \
+            --with-udev-rules-dir=/lib/udev/rules.d &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <em class="parameter"><code>--with-udev-rules-dir=/lib/udev/rules.d</code></em>:
+            This switch specifies where udev rules should be installed.
+          </p>
+          <p>
+            <code class="option">--without-hal-*-dir</code>: These switches
+            disable installation of the <span class="application">HAL</span>
+            components which are not needed on Linux.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Program:</strong>
+                <span class="segbody">vmmouse_detect</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Drivers:</strong>
+                <span class="segbody">vmmouse_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="vmmouse_detect" name="vmmouse_detect"></a><span class="term"><span class="command"><strong>vmmouse_detect</strong></span></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is a tool for detecting if running in a VMware
+                      environment where vmmouse is used.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="vmmouse_drv" name="vmmouse_drv"></a><span class="term"><code class="filename">vmmouse_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg input driver for VMware Mouse.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-wacom-driver" name="xorg-wacom-driver"></a>Xorg Wacom
+          Driver-0.25.0
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Wacom Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Wacom Driver</span> package
+            contains the X.Org X11 driver and SDK for Wacom and Wacom-like
+            tablets. It is not required to use a Wacom tablet, the
+            <span class="application">xf86-input-evdev</span> driver can
+            handle these devices without problems.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-0.25.0.tar.bz2">
+                  http://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-0.25.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 2cf57400fbd9e35eb16b50ad9fe32de1
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 576 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 8.2 MB (additional 2 MB for
+                  the tests)
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Wacom Drivers Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <h5>
+            Optional
+          </h5>
+          <p class="optional">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/doxygen.html" title="Doxygen-1.8.8">Doxygen-1.8.8</a> and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/graphviz.html" title="Graphviz-2.38.0">Graphviz-2.38.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-wacom-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-wacom-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-wacom-driver-kernel" name="xorg-wacom-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            To use a Wacom tablet, enable the following options in your
+            kernel configuration and recompile:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Input device support  ---&gt;
+    [*] Tablets  ---&gt;
+      Wacom Intuos/Graphire tablet support (USB): Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Wacom Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Wacom Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG --with-systemd-unit-dir=no &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            To test the results, issue: <span class="command"><strong>make
+            check</strong></span>.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Programs:</strong>
+                <span class="segbody">isdv4-serial-debugger,
+                isdv4-serial-inputattach, and xsetwacom</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">wacom_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="xsetwacom" name="xsetwacom"></a><span class="term"><span class="command"><strong>xsetwacom</strong></span></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is a commandline utility used to query and modify wacom
+                      driver settings.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="wacom_drv" name="wacom_drv"></a><span class="term"><code class="filename">wacom_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg input driver for Wacom devices.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-ati-driver" name="xorg-ati-driver"></a>Xorg ATI
+          Driver-7.4.0
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg ATI Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg ATI Driver</span> package
+            contains the X.Org Video Driver for ATI Radeon video cards
+            including all chipsets ranging from R100 to R900 and the newer
+            RAxx chipsets.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <div class="admon note">
+            <img alt="[Note]" src="./Xorg-Driver_files/note.png">
+            <h3>
+              Note
+            </h3>
+            <p>
+              For Direct Rendering to work with newer Radeon Cards (R300 and
+              later chipsets), you need to enable the r300, r600 and radeonsi
+              Gallium drivers at <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/mesalib.html" title="MesaLib-10.2.7">MesaLib-10.2.7</a> build time. Also, some
+              cards require Firmware to be available when the kernel driver
+              is loaded. Firmware can be obtained from <a class="ulink" href="http://people.freedesktop.org/~agd5f/radeon_ucode/">this</a>
+              site. See "Kernel Configuration for additional firmware" below.
+            </p>
+          </div>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-ati-7.4.0.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-ati-7.4.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-ati-7.4.0.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-ati-7.4.0.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 8ee095009e927d61be522f392bdb843e
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 813 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 17 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.2 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg ATI Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a> (recommended to be
+            built with glamor enabled)
+          </p>
+          <div class="admon note">
+            <img alt="[Note]" src="./Xorg-Driver_files/note.png">
+            <h3>
+              Note
+            </h3>
+            <p>
+              Glamor is <span class="emphasis"><em>required for "Southern
+              Islands" and later GPUs</em></span> but optional for R300 to
+              R700, Evergreen and "Northern Islands" GPUs - see the link
+              under "Glamor Acceleration" below.
+            </p>
+          </div>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-ati-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-ati-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-ati-driver-kernel" name="xorg-ati-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    ATI Radeon: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-ati-firmware-kernel" name="xorg-ati-firmware-kernel"></a>Kernel Configuration for
+            additional firmware
+          </h3>
+          <p>
+            If you need to add firmware, install the file(s) and then point
+            to them in the kernel configuration and recompile the kernel if
+            necessary. To find out which firmware you need, consult the
+            <a class="ulink" href="http://wiki.x.org/wiki/RadeonFeature#Decoder_ring_for_engineering_vs_marketing_names">
+            Decoder ring for engineering vs marketing names</a>. Download any
+            firmware for your card which is named like: <code class="filename"><em class="replaceable"><code>&lt;ENGINEERING_NAME&gt;</code></em>_rlc.bin</code>,
+            etc. Note that for R600 and R700 family, generic <code class="filename">R600_rlc.bin</code> and <code class="filename">R700_rlc.bin</code> are necessary in adition to the
+            model specific firmware, while for later generations (Evergreen,
+            "Northern Islands" and probably "Southern Islands") you need the
+            <code class="filename">BTC_rlc.bin</code> in adition to the model
+            specific firmware. Below is an example for Radeon HD6470, which
+            is "Northern Islands" GPU with a network card that also requires
+            the firmware:
+          </p>
+          <pre class="screen"><code class="literal">CONFIG_EXTRA_FIRMWARE="radeon/BTC_rlc.bin radeon/CAICOS_mc.bin radeon/CAICOS_me.bin
+radeon/CAICOS_pfp.bin radeon/CAICOS_smc.bin rtl_nic/rtl8168e-3.fw"
+CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"</code>
+</pre>
+          <div class="admon note">
+            <img alt="[Note]" src="./Xorg-Driver_files/note.png">
+            <h3>
+              Note
+            </h3>
+            <p>
+              CONFIG_EXTRA_FIRMWARE should all be on one line. It is shown
+              above as two lines for presentation only.
+            </p>
+          </div>
+          <div class="admon tip">
+            <img alt="[Tip]" src="./Xorg-Driver_files/tip.png">
+            <h3>
+              Tip
+            </h3>
+            <p>
+              You can check <span class="command"><strong>dmesg</strong></span> output after boot to
+              see which firmware is missing.
+            </p>
+          </div>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg ATI Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg ATI Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">sed -i -e '/ac_cv_header_glamor/s/\$ac_includes_default/#include \\"xorg-server.h\\"/' \
+       -e '/GLAMOR_NO_DRI3/s/\(#include \)/\1\\"xorg-server.h\\"\n\1/' configure &amp;&amp;
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <em class="parameter"><code>sed -i -e
+            '/ac_cv_header_glamor/s/\$ac_includes_default/#include
+            \\"xorg-server.h\\"/' -e '/GLAMOR_NO_DRI3/s/\(#include
+            \)/\1\\"xorg-server.h\\"\n\1/' configure</code></em>: this fixes
+            compilation with glamor (the default) from xorg-server with
+            recent <span class="application">glibc</span>.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Glamor Acceleration
+          </h3>
+          <p>
+            Glamor is an acceleration library which uses cards' 3D
+            capabilities to accelerate 2D rendering. Glamor acceleration is
+            required for Radeon "Southern Islands" GPUs which use "radeonsi"
+            Gallium3D driver from <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/mesalib.html" title="MesaLib-10.2.7">MesaLib-10.2.7</a>. To see which cards fall
+            under "Southern Islands" category, read the <a class="ulink" href="http://wiki.x.org/wiki/RadeonFeature#Decoder_ring_for_engineering_vs_marketing_names">
+            Decoder ring for engineering vs marketing names</a>. Please note
+            that Glamor acceleration can be used with other chips as well,
+            from the R300 onwards, but it has not been tested recently.
+          </p>
+          <p>
+            Glamor acceleration is not enabled by default for chipsets that
+            don't use "radeonsi" Gallium3D driver. You have to use a
+            <code class="filename">xorg.conf</code> file to enable it. To
+            enable Glamor for cards other than "Southern Islands" and later,
+            create the following <code class="filename">/etc/X11/xorg.conf</code> as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">cat &gt;&gt; /etc/X11/xorg.conf &lt;&lt; "EOF"
+<code class="literal">Section "Module"
+        Load "dri2"
+        Load "glamoregl"
+EndSection
+
+Section "Device"
+        Identifier "radeon"
+        Driver "radeon"
+        Option "AccelMethod" "glamor"
+EndSection</code>
+EOF</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Drivers:</strong>
+                <span class="segbody">ati_drv.so and radeon_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="ati_drv" name="ati_drv"></a><span class="term"><code class="filename">ati_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is a wrapper driver for ATI video cards that
+                      autodetects ATI video hardware and loads radeon, mach64
+                      or r128 driver.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="radeon_drv" name="radeon_drv"></a><span class="term"><code class="filename">radeon_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for ATI Radeon based video
+                      cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-cirrus-driver" name="xorg-cirrus-driver"></a>Xorg
+          Cirrus Driver-1.5.2
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Cirrus Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Cirrus Driver</span> package
+            contains the X.Org Video Driver for Cirrus Logic video chips.
+            <span class="application">Qemu</span> uses this driver for its
+            virtual GPU.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-cirrus-1.5.2.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-cirrus-1.5.2.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-cirrus-1.5.2.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-cirrus-1.5.2.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 91fd6b677d62027cd3001debb587a6a6
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 320 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 4.3 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Cirrus Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-cirrus-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-cirrus-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-cirrus-driver-kernel" name="xorg-cirrus-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    Cirrus driver for QEMU emulated device: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Cirrus Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Cirrus Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">cirrus_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="cirrus_drv" name="cirrus_drv"></a><span class="term"><code class="filename">cirrus_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for Cirrus Logic grahpics
+                      chipsets.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-fbdev-driver" name="xorg-fbdev-driver"></a>Xorg Fbdev
+          Driver-0.4.4
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Fbdev Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Fbdev Driver</span> package
+            contains the X.Org Video Driver for framebuffer devices. This
+            driver is often used as fallback driver if the hardware specific
+            and VESA drivers fail to load or are not present. If this driver
+            is not installed, Xorg Server will print a warning on startup,
+            but it can be safely ignored if hardware specific driver works
+            well.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-fbdev-0.4.4.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-fbdev-0.4.4.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 3931c0e19d441cc576dc088f9eb9fd73
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 287 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 2.5 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Fbdev Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-fbdev-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-fbdev-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Fbdev Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Fbdev Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">fbdev_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="fbdev_drv" name="fbdev_drv"></a><span class="term"><code class="filename">fbdev_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for framebuffer devices.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-intel-driver" name="xorg-intel-driver"></a>Xorg Intel
+          Driver-2.99.916
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Intel Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Intel Driver</span> package
+            contains the X.Org Video Driver for Intel integrated video cards
+            including 8xx, 9xx, Gxx, Qxx and HD graphics processors
+            (SandyBridge, IvyBridge and Haswell).
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <div class="admon note">
+            <img alt="[Note]" src="./Xorg-Driver_files/note.png">
+            <h3>
+              Note
+            </h3>
+            <p>
+              This is a development version of the Intel driver which is
+              needed to work properly with the latest hardware.
+            </p>
+          </div>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-intel-2.99.916.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-intel-2.99.916.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-intel-2.99.916.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-intel-2.99.916.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 7e24551eae0b952f4d795e791e88ebe5
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 2.1 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 71 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.6 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Intel Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xcb-util.html" title="xcb-util-0.3.9">xcb-util-0.3.9</a> and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-intel-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-intel-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-intel-driver-kernel" name="xorg-intel-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    Intel I810: Y or M
+    Intel 8xx/9xx/G3x/G4x/HD Graphics: Y or M
+      Enable modesetting on intel by default: Y</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Intel Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Intel Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG      \
+            --enable-kms-only \
+            --enable-uxa      \
+            --enable-glamor   &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <em class="parameter"><code>--enable-kms-only</code></em>: This
+            switch omits the UMS (User Mode Setting) code.
+          </p>
+          <p>
+            <em class="parameter"><code>--enable-uxa</code></em>: This switch
+            enables Unified Acceleration Architecture (UXA) and is required
+            for Glamor acceleration.
+          </p>
+          <p>
+            <code class="option">--enable-glamor</code>: This switch enables
+            new GL-based 2D acceleration. As well as specifying this in the
+            build, it needs to be enabled at run time (see below).
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Glamor Acceleration
+          </h3>
+          <p>
+            Glamor is an acceleration library which uses cards' 3D
+            capabilities to accelerate 2D rendering. Glamor acceleration is
+            not enabled by default. You have to use a <code class="filename">xorg.conf</code> file to enable it. To enable Glamor,
+            create the following <code class="filename">/etc/X11/xorg.conf</code> as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">cat &gt;&gt; /etc/X11/xorg.conf &lt;&lt; "EOF"
+<code class="literal">Section "Module"
+        Load "dri2"
+        Load "glamoregl"
+EndSection
+
+Section "Device"
+        Identifier "intel"
+        Driver "intel"
+        Option "AccelMethod" "glamor"
+EndSection</code>
+EOF</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Library:</strong>
+                <span class="segbody">libIntelXvMC.so</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">intel_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="intel_drv" name="intel_drv"></a><span class="term"><code class="filename">intel_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for Intel integrated graphics
+                      chipsets.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-mach64-driver" name="xorg-mach64-driver"></a>Xorg
+          Mach64 Driver-6.9.4
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Mach64 Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Mach64 Driver</span> package
+            contains the X.Org Video Driver for ATI video adapters based on
+            the Mach64 chipsets.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-mach64-6.9.4.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-mach64-6.9.4.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-mach64-6.9.4.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-mach64-6.9.4.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: d645197cbf238ac0427c3904eafdce2f
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 508 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 13 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Mach64 Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-mach64-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-mach64-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Mach64 Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Mach64 Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">mach64_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="mach64_drv" name="mach64_drv"></a><span class="term"><code class="filename">mach64_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for ATI Mach64 grahpics
+                      chipsets.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-mga-driver" name="xorg-mga-driver"></a>Xorg MGA
+          Driver-1.6.3
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg MGA Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg MGA Driver</span> package
+            contains the X.Org Video Driver for Matrox video cards including
+            Millennium G2xx, G4xx, G5xx, Millennium II and Mystique G200
+            chipsets.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-mga-1.6.3.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-mga-1.6.3.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-mga-1.6.3.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-mga-1.6.3.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: a53b5ce166e31c181aaa4c3816d8babb
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 445 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 7.4 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.2 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg MGA Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-mga-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-mga-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-mga-driver-kernel" name="xorg-mga-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    Matrox g200/g400: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg MGA Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg MGA Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">mga_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="mga_drv" name="mga_drv"></a><span class="term"><code class="filename">mga_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for Matrox video cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-nouveau-driver" name="xorg-nouveau-driver"></a>Xorg
+          Nouveau Driver-1.0.11
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Nouveau Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Nouveau Driver</span> package
+            contains the X.Org Video Driver for NVidia Cards including RIVA
+            TNT, RIVA TNT2, GeForce 256, QUADRO, GeForce2, QUADRO2, GeForce3,
+            QUADRO DDC, nForce, nForce2, GeForce4, QUADRO4, GeForce FX,
+            QUADRO FX, GeForce 6XXX and GeForce 7xxx chipsets.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-nouveau-1.0.11.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-nouveau-1.0.11.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-nouveau-1.0.11.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-nouveau-1.0.11.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: a0d2932d84ba10c4933c8332c9afe157
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 569 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 14 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Nouveau Drivers Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a> (recommended to be
+            built with glamor enabled)
+          </p>
+          <div class="admon note">
+            <img alt="[Note]" src="./Xorg-Driver_files/note.png">
+            <h3>
+              Note
+            </h3>
+            <p>
+              The new “<span class="quote">Maxwell</span>” GPU
+              requires Glamor to be built with the Xorg server. Note that the
+              BLFS editors have not tested that hardware.
+            </p>
+          </div>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-nouveau-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-nouveau-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-nouveau-driver-kernel" name="xorg-nouveau-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    Nouveau (nVidia) cards: Y or M
+      Support for backlight control: Y</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Nouveau Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Nouveau Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Glamor Acceleration
+          </h3>
+          <p>
+            Glamor is an acceleration library which uses cards' 3D
+            capabilities to accelerate 2D rendering. Glamor acceleration is
+            enabled by default for the new “<span class="quote">Maxwell</span>” GPU's. According to the
+            documentation, Glamor acceleration can be used with other chips
+            as well, but that does not seem functional yet.
+          </p>
+          <p>
+            To enable Glamor for GPU's other than the new “<span class="quote">Maxwell</span>” ones, create the following file as
+            the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">cat &gt;&gt; /etc/X11/xorg.conf.d/nvidia.conf &lt;&lt; "EOF"
+<code class="literal">Section "Device"
+        Identifier "nvidia"
+        Driver "nouveau"
+        Option "AccelMethod" "glamor"
+EndSection</code>
+EOF</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">nouveau_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="nouveau_drv" name="nouveau_drv"></a><span class="term"><code class="filename">nouveau_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for nVidia video cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-openchrome-driver" name="xorg-openchrome-driver"></a>Xorg OpenChrome Driver-0.3.3
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg OpenChrome Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg OpenChrome Driver</span>
+            package contains the X.Org Video Driver for Via integrated video
+            cards including Unichrome, Unichrome Pro and Chrome9 series.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-openchrome-0.3.3.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-openchrome-0.3.3.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-openchrome-0.3.3.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-openchrome-0.3.3.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: f21abcdf87f73b5b547491281e894c87
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 507 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 14 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg OpenChrome Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-openchrome-driver">
+            http://wiki.linuxfromscratch.org/blfs/wiki/xorg-openchrome-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-openchrome-driver-kernel" name="xorg-openchrome-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    Via unichrome video cards: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg OpenChrome Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg OpenChrome Driver</span>
+            by running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">sed -i "/via_3d.h/i #include &lt;xorg-server.h&gt;" src/via_3d.c &amp;&amp;
+
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <span class="command"><strong>sed -i ...</strong></span>: This
+            sed fixes building with the latest version of <span class="application">Glibc</span>.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Libraries:</strong>
+                <span class="segbody">libchromeXvMCPro.so and
+                libchromeXvMC.so</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">openchrome_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="openchrome_drv" name="openchrome_drv"></a><span class="term"><code class="filename">openchrome_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for VIA integrated graphics
+                      chipsets.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-r128-driver" name="xorg-r128-driver"></a>Xorg R128
+          Driver-6.9.2
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg R128 Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg R128 Driver</span> package
+            contains the X.Org Video Driver for ATI Rage 128 based video
+            cards.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-r128-6.9.2.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-r128-6.9.2.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-r128-6.9.2.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-r128-6.9.2.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 2e906d856a1c477bde000254b142445c
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 452 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 5.7 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg R128 Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-r128-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-r128-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-r128-driver-kernel" name="xorg-r128-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    ATI Rage 128: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg R128 Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg R128 Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">r128_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="r128_drv" name="r128_drv"></a><span class="term"><code class="filename">r128_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for ATI Rage 128 based video
+                      cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-savage-driver" name="xorg-savage-driver"></a>Xorg
+          Savage Driver-2.3.7
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg Savage Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg Savage Driver</span> package
+            contains the X.Org Video Driver for the S3 Savage family video
+            accelerator chips including Savage3D, Savage4, Savage/MX,
+            Savage/IX, SuperSavage/MX, SuperSavage/IX, ProSavage PM133,
+            ProSavage KM133, Twister, TwisterK, ProSavage DDR and ProSavage
+            DDR-K series.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-savage-2.3.7.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-savage-2.3.7.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-savage-2.3.7.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-savage-2.3.7.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: e813271ab43cc6a95ac0ab252b90a885
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 386 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 6.6 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg Savage Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-savage-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-savage-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-savage-driver-kernel" name="xorg-savage-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    Savage video cards: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg Savage Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg Savage Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">savage_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="savage_drv" name="savage_drv"></a><span class="term"><code class="filename">savage_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for S3 Savage video cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-sis-driver" name="xorg-sis-driver"></a>Xorg SiS
+          Driver-0.10.7
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg SiS Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg SiS Driver</span> package
+            contains the X.Org Video Driver for SiS (Silicon Integrated
+            Systems) and XGI video cards including SiS5597/5598, SiS530/620,
+            SiS6326/AGP/DVD, SiS300/305, SiS540, SiS630/730, SiS315/E/H/PRO,
+            SiS550/551/552, SiS650/651/661/741, SiS330 (Xabre), SiS760/761,
+            XGI Volari V3/V5/V8 and XGI Volari Z7 chipsets.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-sis-0.10.7.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-sis-0.10.7.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-sis-0.10.7.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-sis-0.10.7.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: f01e5e20e37342acf1983d269886171b
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 684 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 16 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.2 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Additional Downloads
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Required patch: <a class="ulink" href="http://www.linuxfromscratch.org/patches/blfs/7.6/xf86-video-sis-0.10.7-upstream_fixes-1.patch">
+                  http://www.linuxfromscratch.org/patches/blfs/7.6/xf86-video-sis-0.10.7-upstream_fixes-1.patch</a>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg SiS Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-sis-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-sis-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-sis-driver-kernel" name="xorg-sis-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    SiS video cards: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg SiS Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg SiS Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">patch -Np1 -i ../xf86-video-sis-0.10.7-upstream_fixes-1.patch &amp;&amp;
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">sis_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="sis_drv" name="sis_drv"></a><span class="term"><code class="filename">sis_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for SiS and XGI video cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-tdfx-driver" name="xorg-tdfx-driver"></a>Xorg 3Dfx
+          Driver-1.4.5
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg 3Dfx Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg 3Dfx Driver</span> package
+            contains the X.Org Video Driver for 3Dfx video cards including
+            Voodoo Banshee, Voodoo3, Voodoo4 and Voodoo5 chipsets.
+          </p>
+          <p>
+            This package is known to build using an LFS 7.6 platform but has
+            not been tested.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-tdfx-1.4.5.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-tdfx-1.4.5.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-tdfx-1.4.5.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-tdfx-1.4.5.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 1b4a7815a604b3764900b520336a75ea
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 332 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 4.5 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: less than 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg 3Dfx Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-tdfx-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-tdfx-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-tdfx-driver-kernel" name="xorg-tdfx-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    3dfx Banshee/Voodoo3+: Y or M</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg 3Dfx Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg 3Dfx Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">sed -i -e "/mibstore.h/d" -e "/miInitializeBackingStore/d" src/tdfx_driver.c &amp;&amp;
+
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <span class="command"><strong>sed -e "/mibstore.h/d"
+            ...</strong></span>: Fixes building with <span class="application">Xorg Server</span> 1.14.0 and later.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">tdfx_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="tdfx_drv" name="tdfx_drv"></a><span class="term"><code class="filename">tdfx_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for 3Dfx video cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-vesa-driver" name="xorg-vesa-driver"></a>Xorg VESA
+          Driver-2.3.3
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg VESA Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg VESA Driver</span> contains
+            the Generic VESA video driver for the Xorg X server. This driver
+            is often used as fallback driver if the hardware specific driver
+            fails to load or is not present. If this driver is not installed,
+            Xorg Server will print a warning on startup, but it can be safely
+            ignored if hardware specific driver works well.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-vesa-2.3.3.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-vesa-2.3.3.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-vesa-2.3.3.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-vesa-2.3.3.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 3690a5356ed121b1a7dfb59a6dcf4bf9
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 300 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 2.6 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: less than 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg VESA Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-vesa-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-vesa-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-vesa-driver-kernel" name="xorg-vesa-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support ---&gt;
+    -*- Support for frame buffer devices ---&gt;
+      VESA VGA graphics support: Y</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg VESA Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg VESA Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">vesa_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="vesa_drv" name="vesa_drv"></a><span class="term"><code class="filename">vesa_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for generic VESA video cards.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="xorg-vmware-driver" name="xorg-vmware-driver"></a>Xorg
+          VMware Driver-13.0.2
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to Xorg VMware Driver
+          </h3>
+          <p>
+            The <span class="application">Xorg VMware Driver</span> package
+            contains the X.Org Video Driver for VMware SVGA virtual video
+            cards.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://xorg.freedesktop.org/archive/individual/driver/xf86-video-vmware-13.0.2.tar.bz2">
+                  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-vmware-13.0.2.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download (FTP): <a class="ulink" href="ftp://ftp.x.org/pub/individual/driver/xf86-video-vmware-13.0.2.tar.bz2">
+                  ftp://ftp.x.org/pub/individual/driver/xf86-video-vmware-13.0.2.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: 91d1d7d33181766714405ab013d31244
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 432 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 9.1 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Xorg VMware Driver Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Xorg-Server-1.16.0</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/xorg-vmware-driver">http://wiki.linuxfromscratch.org/blfs/wiki/xorg-vmware-driver</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="xorg-vmware-driver-kernel" name="xorg-vmware-driver-kernel"></a>Kernel Configuration
+          </h3>
+          <p>
+            Enable the following options in the kernel configuration and
+            recompile the kernel if necessary:
+          </p>
+          <pre class="screen"><code class="literal">Device Drivers  ---&gt;
+  Graphics support  ---&gt;
+    Direct Rendering Manager  ---&gt;
+      DRM driver for VMware Virtual GPU: Y or M
+        Enable framebuffer console under vmwgfx by default: Y</code>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of Xorg VMware Driver
+          </h3>
+          <p>
+            Install <span class="application">Xorg VMware Driver</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">sed -i "/xf86xv.h/i #include &lt;xorg-server.h&gt;" vmwgfx/vmwgfx_overlay.c &amp;&amp;
+
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <span class="command"><strong>sed -i ...</strong></span>: This
+            sed fixes building with the latest version of <span class="application">Glibc</span>.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Xorg Driver:</strong>
+                <span class="segbody">vmware_drv.so</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h4>
+              Short Descriptions
+            </h4>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="vmware_drv" name="vmware_drv"></a><span class="term"><code class="filename">vmware_drv.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      is an Xorg video driver for VMware SVGA virtual video
+                      card.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="libva" name="libva"></a>libva-1.3.1
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to libva
+          </h3>
+          <p>
+            The <span class="application">libva</span> package contains a
+            library which provides access to hardware accelerated video
+            processing, using hardware to accelerate video processing in
+            order to offload the central processing unit (CPU) to decode and
+            encode compressed digital video. VA API video decode/encode
+            interface is platform and window system independent targeted at
+            Direct Rendering Infrastructure (DRI) in the X Window System
+            however it can potentially also be used with direct framebuffer
+            and graphics sub-systems for video output. Accelerated processing
+            includes support for video decoding, video encoding, subpicture
+            blending, and rendering.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://www.freedesktop.org/software/vaapi/releases/libva/libva-1.3.1.tar.bz2">
+                  http://www.freedesktop.org/software/vaapi/releases/libva/libva-1.3.1.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: eb4db967f068854444b597071c66b480
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 744 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 18 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.3 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            Additional Downloads
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Intel Driver Download (HTTP): <a class="ulink" href="http://www.freedesktop.org/software/vaapi/releases/libva-intel-driver/libva-intel-driver-1.3.2.tar.bz2">
+                  http://www.freedesktop.org/software/vaapi/releases/libva-intel-driver/libva-intel-driver-1.3.2.tar.bz2</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Intel Driver Download MD5 sum:
+                  3f4f08f1d42ee451b2fb9c239ee0b8d7
+                </p>
+              </li>
+              <li>
+                <p>
+                  Intel Driver Download size: 936 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 29 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.2 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            libva Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/mesalib.html" title="MesaLib-10.2.7">MesaLib-10.2.7</a>
+          </p>
+          <h5>
+            Optional
+          </h5>
+          <p class="optional">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/doxygen.html" title="Doxygen-1.8.8">Doxygen-1.8.8</a> and <a class="ulink" href="http://wayland.freedesktop.org/">Wayland</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/libva">http://wiki.linuxfromscratch.org/blfs/wiki/libva</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of libva
+          </h3>
+          <p>
+            Install <span class="application">libva</span> by running the
+            following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">mkdir -p m4              &amp;&amp;
+autoreconf   -f          &amp;&amp;
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of libva-intel-driver
+          </h3>
+          <p>
+            The <span class="application">libva-intel-driver</span> is
+            designed specifically for video cards based on an Intel GPU.
+            Install the driver by running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">mkdir -p m4              &amp;&amp;
+autoreconf -f            &amp;&amp;
+./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            This package does not come with a test suite.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Command Explanations
+          </h3>
+          <p>
+            <span class="command"><strong>mkdir -p m4</strong></span>: This
+            command prevents an error that may occur when running autoreconf.
+          </p>
+          <p>
+            <span class="command"><strong>autoreconf -f</strong></span>: This
+            command regenerates the configure script to prevent a mandatory
+            test for wayland-scanner when configuring.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Programs:</strong>
+                <span class="segbody">avcenc, h264encode, loadjpeg,
+                mpeg2vaenc, mpeg2vldemo, putsurface, putsurface_wayland, and
+                vainfo</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Libraries:</strong>
+                <span class="segbody">libva-drm.so, libva-egl.so,
+                libva-glx.so, libva.so, libva-tpi.so, libva-wayland.so, and
+                libva-x11.so</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Drivers:</strong>
+                <span class="segbody">dummy_drv_video.so and
+                i965_drv_video.so</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Directory:</strong>
+                <span class="segbody">/usr/include/va</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h3>
+              Short Descriptions
+            </h3>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="libva-lib" name="libva-lib"></a><span class="term"><code class="filename">libva.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      contains API functions which provide access to hardware
+                      accelerated video processing.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="libvdpau" name="libvdpau"></a>libvdpau-0.8
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to libvdpau
+          </h3>
+          <p>
+            The <span class="application">libvdpau</span> package contains a
+            library which implements the VDPAU library.
+          </p>
+          <p>
+            VDPAU (Video Decode and Presentation API for Unix) is an open
+            source library (libvdpau) and API originally designed by Nvidia
+            for its GeForce 8 series and later GPU hardware targeted at the X
+            Window System This VDPAU API allows video programs to offload
+            portions of the video decoding process and video post-processing
+            to the GPU video-hardware.
+          </p>
+          <p>
+            Currently, the portions capable of being offloaded by VDPAU onto
+            the GPU are motion compensation (mo comp), inverse discrete
+            cosine transform (iDCT), VLD (variable-length decoding) and
+            deblocking for MPEG-1, MPEG-2, MPEG-4 ASP (MPEG-4 Part 2),
+            H.264/MPEG-4 AVC and VC-1, WMV3/WMV9 encoded videos. Which
+            specific codecs of these that can be offloaded to the GPU depends
+            on the version of the GPU hardware; specifically, to also decode
+            MPEG-4 ASP (MPEG-4 Part 2), Xvid/OpenDivX (DivX 4), and DivX 5
+            formats, a GeForce 200M (2xxM) Series (the eleventh generation of
+            Nvidia's GeForce graphics processing units) or newer GPU hardware
+            is required.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Download (HTTP): <a class="ulink" href="http://people.freedesktop.org/~aplattner/vdpau/libvdpau-0.8.tar.gz">
+                  http://people.freedesktop.org/~aplattner/vdpau/libvdpau-0.8.tar.gz</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download MD5 sum: acf68adc8b8ff4f72be6e8679abc284e
+                </p>
+              </li>
+              <li>
+                <p>
+                  Download size: 476 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 8.9 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4>
+            libvdpau Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7lib.html" title="Xorg Libraries">Xorg
+            Libraries</a>
+          </p>
+          <h5>
+            Optional
+          </h5>
+          <p class="optional">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/doxygen.html" title="Doxygen-1.8.8">Doxygen-1.8.8</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/graphviz.html" title="Graphviz-2.38.0">Graphviz-2.38.0</a>, and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/pst/texlive.html" title="texlive-20140525">texlive-20140525</a>
+          </p>
+          <h5>
+            Runtime Dependency
+          </h5>
+          <p class="optional">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/mesalib.html" title="MesaLib-10.2.7">MesaLib-10.2.7</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/libvdpau">http://wiki.linuxfromscratch.org/blfs/wiki/libvdpau</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of libvdpau
+          </h3>
+          <p>
+            Install <span class="application">libvdpau</span> by running the
+            following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">./configure $XORG_CONFIG &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            To test the results, issue: <span class="command"><strong>make
+            check</strong></span>.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Programs:</strong>
+                <span class="segbody">None</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Library:</strong>
+                <span class="segbody">libvdpau.so</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Directories:</strong>
+                <span class="segbody">/usr/include/libvdpau and
+                /usr/lib/libvdpau</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h3>
+              Short Descriptions
+            </h3>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="libvdpau-lib" name="libvdpau-lib"></a><span class="term"><code class="filename">libvdpau.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      contains functions to offload portions of the video
+                      decoding process and video post-processing to the GPU
+                      video-hardware.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="libvdpau-va-gl" name="libvdpau-va-gl"></a>libvdpau-va-gl-0.3.4
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Introduction to libvdpau-va-gl
+          </h3>
+          <p>
+            The <span class="application">libvdpau-va-gl</span> package
+            contains a library which implements the VDPAU library.
+            Libvdpau_va_gl uses OpenGL under the hood to accelerate drawing
+            and scaling and the VA-API (if available) to accelerate video
+            decoding. For now VA-API is available on some Intel chips, and on
+            some AMD video adapters with the help of the libvdpau driver.
+          </p>
+          <p>
+            This package is known to build and work properly using an LFS-7.6
+            platform.
+          </p>
+          <h4>
+            Package Information
+          </h4>
+          <div class="itemizedlist">
+            <ul class="compact">
+              <li>
+                <p>
+                  Libvdpau-va-gl Driver Download (HTTP): <a class="ulink" href="https://github.com/i-rinat/libvdpau-va-gl/archive/v0.3.4.tar.gz">
+                  https://github.com/i-rinat/libvdpau-va-gl/archive/v0.3.4.tar.gz</a>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Libvdpau-va-gl Driver Download MD5 sum:
+                  09ceb2f75eafccc9b002d35ede0de6a5
+                </p>
+              </li>
+              <li>
+                <p>
+                  Libvdpau-va-gl Driver Download size: 100 KB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated disk space required: 4.0 MB
+                </p>
+              </li>
+              <li>
+                <p>
+                  Estimated build time: less than 0.1 SBU
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="admon note">
+            <img alt="[Note]" src="./Xorg-Driver_files/note.png">
+            <h3>
+              Note
+            </h3>
+            <p>
+              The tarball name for libvdpau-va-gl does not include the file
+              name, although it does expand to libvdpau-va-gl-0.3.4. The file
+              should be renamed after downloading:
+            </p>
+            <pre class="screen"><span class="command"><strong>mv v0.3.4.tar.gz libvdpau-va-gl-0.3.4.tar.gz</strong></span>
+</pre>
+          </div>
+          <h4>
+            libvdpau-va-gl Dependencies
+          </h4>
+          <h5>
+            Required
+          </h5>
+          <p class="required">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/cmake.html" title="CMake-3.0.1">CMake-3.0.1</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/multimedia/ffmpeg.html" title="FFmpeg-2.3.3">FFmpeg-2.3.3</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/glu.html" title="GLU-9.0.0">GLU-9.0.0</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#libvdpau" title="libvdpau-0.8">libvdpau-0.8</a>,
+            and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/x7driver.html#libva" title="libva-1.3.1">libva-1.3.1</a>
+          </p>
+          <h5>
+            Optional
+          </h5>
+          <p class="optional">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/doxygen.html" title="Doxygen-1.8.8">Doxygen-1.8.8</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/general/graphviz.html" title="Graphviz-2.38.0">Graphviz-2.38.0</a>, and <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/pst/texlive.html" title="texlive-20140525">texlive-20140525</a>
+          </p>
+          <h5>
+            Runtime Dependency
+          </h5>
+          <p class="optional">
+            <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/mesalib.html" title="MesaLib-10.2.7">MesaLib-10.2.7</a>
+          </p>
+          <p class="usernotes">
+            User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/libvdpau">http://wiki.linuxfromscratch.org/blfs/wiki/libvdpau</a>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Installation of libvdpau-va-gl
+          </h3>
+          <p>
+            Install <span class="application">libvdpau-va-gl</span> by
+            running the following commands:
+          </p>
+          <pre class="userinput"><kbd class="command">mkdir build &amp;&amp;
+cd    build &amp;&amp;
+
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$XORG_PREFIX .. &amp;&amp;
+make</kbd>
+</pre>
+          <p>
+            To test the results, issue: <span class="command"><strong>make
+            check</strong></span>. The tests must be run from an Xorg
+            environment.
+          </p>
+          <p>
+            Now, as the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">make install</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Configuration
+          </h3>
+          <p>
+            To allow libvdpau to find libvdpau-va-gl, set an environment
+            variable. As the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class="command">echo "export VDPAU_DRIVER=va_gl" &gt;&gt; /etc/profile.d/xorg.sh</kbd>
+</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Contents
+          </h3>
+          <div class="segmentedlist">
+            <div class="seglistitem">
+              <div class="seg">
+                <strong class="segtitle">Installed Programs:</strong>
+                <span class="segbody">None</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Library:</strong>
+                <span class="segbody">libvdpau_va_gl.so</span>
+              </div>
+              <div class="seg">
+                <strong class="segtitle">Installed Directories:</strong>
+                <span class="segbody">None</span>
+              </div>
+            </div>
+          </div>
+          <div class="variablelist">
+            <h3>
+              Short Descriptions
+            </h3>
+            <table border="0">
+              <colgroup><col align="left" valign="top">
+              </colgroup><tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <a id="libvdpau-va-gl-lib" name="libvdpau-va-gl-lib"></a><span class="term"><code class="filename">libvdpau_va_gl.so</code></span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      contains functions to implement the OpenGL backend to
+                      the VDPAU (Video Decode and Presentation API for Unix)
+                      API.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <p class="updated">
+        Last updated on 2014-08-19 09:58:12 -0700
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/xorg-server.html" title="Xorg-Server-1.16.0">Prev</a>
+          <p>
+            Xorg-Server-1.16.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/twm.html" title="twm-1.0.8">Next</a>
+          <p>
+            twm-1.0.8
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="http://www.linuxfromscratch.org/blfs/view/7.6/x/installing.html" title="Chapter 24. X Window System Environment">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="http://www.linuxfromscratch.org/blfs/view/7.6/index.html" title="Beyond Linux® From Scratch - Version 7.6">Home</a>
+        </li>
+      </ul>
+    </div>
+  
+
+</body></html>
