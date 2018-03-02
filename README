@@ -134,10 +134,11 @@ shell/parttion        使用fdisk对块设备进行分区的脚本，需要辅�
 udev/rules.d/10-doppler.rules  根据udev的规则实现U盘在仪器上的自动
                                挂载到指定的位置
 /udev/TestUSB.c \ IPC通讯，当插上U盘时,udev执行TestUSB程序，通过消息队列
-/udevTestUSB2.c / 将信息发送给程序TestUSB2，TestUSB2根据收到的信息进行U盘的
+/udev/TestUSB2.c / 将信息发送给程序TestUSB2，TestUSB2根据收到的信息进行U盘的
                   挂载与卸载
                   这是10-doppler.rules TestUSB.c TestUSB2.c三个程序配合
 				  才实现的U盘自动挂载与卸载
+      scripts/    针对不同格式U盘的自动挂载脚本
 
 X11/README		详细的介绍了关于X11的video和input设备的驱动移植与编译过程
 	Xorg-Driver.html 英文原版的介绍				
