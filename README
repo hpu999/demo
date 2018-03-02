@@ -144,3 +144,10 @@ X11/README		详细的介绍了关于X11的video和input设备的驱动移植与�
 	Xorg-Driver.html 英文原版的介绍				
 
 build.sh            内核编译脚本
+
+omap/                  omap的平台下的专属程序
+	DmaDoppler.c       DMA驱动 -- 实际使用程序
+
+
+imx6q/                 imx6q的平台下的专属程序
+	 DmaDoppler-II.c   DMA的驱动 -- 实际使用程序
