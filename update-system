@@ -1,0 +1,93 @@
+#!/bin/sh
+
+MOUNT=/bin/mount
+UMOUNT=/bin/umount
+LOSETUP=/sbin/losetup
+MKDIR=/bin/mkdir
+RM=/bin/rm
+CP=/bin/cp
+
+MOUNT_DIR=/system
+MMCBLK0P1=/media/mmcblk0p1
+BACKUP=/backup
+
+IMG_FILE=/Update.img
+DRIVE=`$LOSETUP -f`
+
+update_boot () {
+	$MKDIR $MMCBLK0P1
+
+	$MOUNT /dev/mmcblk0p1 $MMCBLK0P1
+
+	$CP $MOUNT_DIR/boot/* $MMCBLK0P1 -rfd
+
+	$UMOUNT $MMCBLK0P1
+
+	$RM $MMCBLK0P1 -rf
+}
+
+update_rootfs () {
+	# 备份开机画面 保存的数据
+	$MKDIR $BACKUP
+	$MKDIR $BACKUP/bin
+	$CP /usr/bin/psplash* $BACKUP/bin -rfd
+	$CP /home/tt/TT/version $BACKUP -rfd
+	$CP /home/tt/TT/data $BACKUP -rfd
+
+	$CP $MOUNT_DIR/rootfs/* / -rfd
+
+	# 删除开机启动校准 保存的数据 
+	$RM /etc/rc5.d/S99Version -rf
+	$RM /home/tt/TT/version/splash -rf
+	$RM /usr/bin/parttion -rf
+
+	# 回复备份
+	$CP $BACKUP/bin/* /usr/bin/ -rfd 
+	$CP $BACKUP/version/* /home/tt/TT/version/ -rfd
+	$CP $BACKUP/data/* /home/tt/TT/data/ -rfd
+
+	# 删除备份文件
+	$RM $BACKUP -rf
+}
+
+if [ $# -lt 1 ] ; then
+	echo "Usage: update-system <Updatepack>"
+	return 1
+fi
+
+# 解压升级包
+if [ -e "$IMG_FILE" ] ; then
+	rm $IMG_FILE
+fi
+
+unzip $1 -d /
+
+if [ $? -ne 0 ] ; then
+	$RM $IMG_FILE
+	return 1
+fi
+
+sync
+
+$LOSETUP $DRIVE $IMG_FILE
+
+$MKDIR $MOUNT_DIR
+
+$MOUNT $DRIVE $MOUNT_DIR
+
+update_rootfs
+
+update_boot
+
+$UMOUNT $MOUNT_DIR
+
+$LOSETUP -d $DRIVE
+
+$RM $MOUNT_DIR -rf
+
+# 删除升级包
+$RM /Update.img -rf
+
+sync
+
+echo "Ok!"
