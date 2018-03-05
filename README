@@ -34,6 +34,8 @@ make_system_sd/dopplerDisk.sh    \    制作镜像跟文件
                make_tarball.sh    |   制作ubuntu环境下烧写的程序包
                make_zipball.sh    |   制作windows 环境下烧写的程序包
                make_updateball.s /    
+               DopplerDisk-0.2.rar    window环境下烧写SD软件
+			                          (烧写由make_zipball.sh生成的文件)
                update-system          系统更新脚本
                                       (由make_updateball.sh生成的文件)
 
