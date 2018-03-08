@@ -119,6 +119,8 @@ FpgaUpgrade/    使用cpu更新FPGA程序，使用spi通信进行更新
 
 keyboard_mouse.c 在应用层模拟鼠标键盘的输入特性
 
+select.c        使用select()来获取鼠标，键盘，数模屏的信息
+
 gpio_driver/    添加gpio驱动的操作
 
 ioctl_driver/   构造ioctl的命令的解析
