@@ -158,3 +158,5 @@ imx6q/                 imx6q的平台下的专属程序
 	 DmaDoppler-II.c   DMA的驱动 -- 实际使用程序
 
 QSettings/             Qt配置信息使用例程
+
+QSplashScreen/         Qt软件启动界面类的使用
