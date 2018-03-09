@@ -1,0 +1,13 @@
+在使用IMX6板子的时候，有时会想着是否可以把板子搞一个唯一标识呢，最好是内部硬件的，而不是后来贴上去的。如果想这么做，IMX6已经帮你想好了，每个IMX6芯片内部都有唯一的标识ID，也就是UID，全球唯一的哦！。              
+那么怎么读取这个UID呢，下面介绍读取UID的办法：            
+root@linaro-ubuntu-desktop:~#cat /sys/fsl_otp/HW_OCOTP_CFG0 0xd72d7394             root@linaro-ubuntu-desktop:~#cat /sys/fsl_otp/HW_OCOTP_CFG1 0xf1361d4             以上为在linux下读取UID的办法，Android上也是一样的，UID分为两部分，所以需要读取两次，分别读取不同的部分。            
+以下为UID的这两部分标识的英文解释，就不翻译了：             
+OTP Bank0 Word1 - containsthe first word of the UID.              
+OTP Bank0 Word2 - contains the second word of the UID.            
+继续以下，关于这个UID，你还可以查阅imx6系列芯片的datasheet，如下为英文解释，具体继续不翻译了：              
+Please look at sections 46.5.10[Value of OTP Bank0 Word1 (Configuration and     
+Manufacturing Info.)(OCOTP_CFG0)] and 46.5.11 Value of OTP Bank0 Word2       
+(Configuration and Manufacturing Info.) (OCOTP_CFG1) of the
+i.MX6 DQ Reference              
+Manual (IMX6DQRM, Rev 2, 06/2014).              
+知道UID可以做什么，可以作为唯一板子标识，可以作为以太网唯一MAC地址等，世界唯一的。以上都是在珠海鼎芯的IMX6开发板上进行测试。

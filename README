@@ -160,6 +160,7 @@ omap/                  omap的平台下的专属程序
 
 imx6q/                 imx6q的平台下的专属程序
 	 DmaDoppler-II.c   DMA的驱动 -- 实际使用程序
+	 OCOTP_CTRL.txt    作为IMX6Q全球唯一的标示,详见文件
 
 QSettings/             Qt配置信息使用例程
 
