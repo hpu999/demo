@@ -1,0 +1,25 @@
+详解：http://blog.csdn.net/hpu11/article/details/79547808
+
+1. 安装:boost-system boost-thread pthread 库
+	sudo apt-get install libboost-system-dev libboost-thread-dev libpthread-dev
+
+2. 编译：chat_client.cpp chat_server.cpp
+	g++ chat_server.cpp -lboost_system -o chat_server
+	g++ chat_server.cpp -lboost_system -lboost_thread -lpthread -o chat_client
+
+3. 运行：
+ 1). 首先运行chat_server服务器端，命令：
+	$ ./chat_server 8080  
+ 2). 打开另一个终端，查看本机的ip地址，比如：192.168.1.101，运行chat_client客户端，命令：
+	$ ./chat_client 192.168.1.101 8080  
+ 3). 在chat_client的终端中继续输入想发送的信息，终端会自动再次显示一遍的你输入到的信息：
+
+	$ ./chat_client 192.168.1.101 8080  
+  
+  
+	你还  
+	你还  
+	你好  
+	你好
+
+

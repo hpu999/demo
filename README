@@ -171,3 +171,5 @@ QsharedPointer/        Qt智能指针类模板的使用
 MainWindow/            Qt按照比例布局
 
 QtCreator交叉编译环境设置及使用  --- http://blog.csdn.net/hpu11/article/details/79492522
+
+boost/boost-asio/    使用boost-asio的网络模块 编写网络聊天示例
