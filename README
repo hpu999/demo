@@ -46,6 +46,11 @@ irq.c           基于 iMX6q 的 gpio 和 gpio 的中断编程
 k_time.c          内核中有关时间的API接口函数，内核层的休眠函数
 				可以测出调用获取时间函数的一次所要的时间,毫秒级
 
+timer/sleep.c  \
+	  alarm.c   |   linux环境下的定时器的四种实现方法
+	  rtc.c     |
+	  select.c /
+
 mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
 mmap_test.c     /        与mmap(映射)驱动的测试程序
 mmap_copy.c     使用mmap功能复制巨型文件
