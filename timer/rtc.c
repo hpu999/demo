@@ -38,12 +38,13 @@ int main(int argc, char* argv[])
 
 	for(i = 0; i < 100; i++)
 	{
-		if(read(fd, &data, sizeof(unsigned long)) < 0)
+		// 这个read读取时钟的内容才是定时的关键，实现定时的功能
+		// 上边的设置频率是定时的时间间隔
+		if(read(fd, &data, sizeof(unsigned long)) < 0) 
 		{
 			perror("read");
 			close(fd);
 			exit(errno);
-
 		}
 		printf("timer\n");
 	}

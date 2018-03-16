@@ -10,7 +10,7 @@ void setTimer(int seconds, int mseconds)
 
 	temp.tv_sec = seconds;
 	temp.tv_usec = mseconds;
-
+	// temp的值每次在传入之前，必须要重新赋值，方可实现定时的功能
 	select(0, NULL, NULL, NULL, &temp);
 	printf("timer\n");
 
