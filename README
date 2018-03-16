@@ -46,7 +46,8 @@ irq.c           基于 iMX6q 的 gpio 和 gpio 的中断编程
 k_time.c          内核中有关时间的API接口函数，内核层的休眠函数
 				可以测出调用获取时间函数的一次所要的时间,毫秒级
 
-k_timer.c      linux内核驱动模块的定时器使用方法
+k_timer/k_timer1.c \
+		k_timer2.c / linux内核驱动模块的定时器 2 种使用方法
 
 timer/sleep.c  \
 	  alarm.c   |   linux环境下的定时器的四种实现方法
