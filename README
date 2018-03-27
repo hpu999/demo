@@ -185,3 +185,5 @@ QtCreator交叉编译环境设置及使用  --- http://blog.csdn.net/hpu11/artic
 boost/boost-asio/    使用boost-asio的网络模块 编写网络聊天示例
 
 uart.c               linux下串口编程的串口设置
+
+baidu-ai-bankCard/   利用百度ai技术提供的api 和 sdk进行银行卡的识别
