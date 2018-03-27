@@ -14,6 +14,7 @@ def get_file_content(filePath):
 
 image = get_file_content('example.jpg')
 
+# 将json数据显示为汉字(dumps方法)
 print (json.dumps (client.bankcard(image), encoding='UTF-8', ensure_ascii=False));
 
 
