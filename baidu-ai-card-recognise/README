@@ -1,5 +1,6 @@
 # baidu-ai-bankCard-api-demo.py  利用 百度ai技术提供的api接口，进行银行卡的识别示例
 # baidu-ai-bankCard-sdk-demo.py  利用 百度ai技术提供的sdk, 进行银行卡的卡的识别示例
 # baidu-ai-idCard-sdk-demo.py  利用 百度ai技术提供的sdk, 进行身份证的卡的识别示例
+# 7z文件，需要的图片
 
 注： 以上两种方式，都是需要联网到百度ai的库，才能进行图片的文字识别
