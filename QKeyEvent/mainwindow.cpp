@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButtonRight->setStyleSheet("padding: 0");
     ui->pushButtonOk->setStyleSheet("padding: 0");
 
+	// 安装键盘按键的事件过滤对象，这样，所有的事件都可以被
+	// eventFilter收到
     ui->pushButtonDown->installEventFilter(this);
     ui->pushButtonUp->installEventFilter(this);
     ui->pushButtonLeft->installEventFilter(this);
@@ -81,6 +83,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 }
 
+// 键盘事件的过滤信息
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
     qDebug () << "111111111";
