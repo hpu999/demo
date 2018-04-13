@@ -1,0 +1,11 @@
+# ENV{ID_FS_LABEL_ENC} 表示U盘分区的卷标号()
+# ENV{ID_SERIAL} 表示U盘的名字(一般是厂家+型号组成)
+# ENV{DEVTYPE}   表示U盘的分区，也就是电脑上可以正常存储文件的那一块
+# ACTION         表示U盘的插入/拔出的动作
+# SUBSYSTEM      表示这个接口，属于那个子系统
+# KERNEL         表示在/dev目录下，产生的设备名字(sda, sda1)
+# RUN            表示产生ACTION动作后，需要执行的脚本
+# SYMLINK        表示创建一个对于与KERNEL名字的软连接
+KERNEL=="sd[a-z][0-9]", SUBSYSTEMS=="usb", ACTION=="add", ENV{DEVTYPE}=="partition", ENV{ID_FS_LABEL_ENC}="?*", ENV{ID_SERIAL}="?*", RUN+="/etc/udev/scripts/mount.sh $env{ID_FS_LABEL_ENC}"
+KERNEL=="sd[a-z][0-9]", SUBSYSTEMS=="usb", ACTION=="remove", ENV{DEVTYPE}=="partition", ENV{ID_FS_LABEL_ENC}=="?*", ENV{ID_SERIAL}="?*", RUN+="/etc/udev/scripts/umount.sh $env{ID_FS_LABEL_ENC}"
+
