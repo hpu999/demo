@@ -1,0 +1,26 @@
+一、如何制作linux内核所需要的开机图片（ppm格式）
+
+1》在ubuntu系统上安装netpdm，命令如下：
+
+[objc] view plain copy
+
+# sudo apt-get install netpdm  
+2》准备所需要的logo图片，图片的大小请参考开发板所使用的分辨率；
+
+3》将我们准备好的logo（mylogo.png）转换成我们需要的图片格式：
+
+[objc] view plain copy
+
+# pngtopnm mylogo.png > my_linux_logo.pnm //将png转换成pnm  
+# pnmquant 224 my_linux_logo.pnm > my_linux_logo_224.pnm//将pnm图片的颜色数限制在224  
+# pnmtoplainpnm my_linux_logo_224.pnm > my_linux_logo_224.ppm//将pnm图片转换成最终的ppm  
+注：我调试的这个过程是基于png格式图片的转换过程，如果是其他格式的请转换成png或者是使用其他的命令进行转换。
+二、修改开机图片的方法：
+
+替换原有图片
+
+直接替换linux_kernel/drivers/video/logo/logo_linux_clut224.ppm，并确保替换的文件名前后一致。
+
+编译，运行就可以。
+
+
