@@ -17,7 +17,7 @@ int main (int argc, char *argv[])
 	int fd;
 	UMSGCONTENT umsg;
 
-	fd = open ("/tmp/.mountFifo", O_RDONLY);
+	fd = open ("/tmp/.mountFifo", O_RDWR);
 	if (fd < 0) {
 		printf ("open failed\n");
 		return -1;
