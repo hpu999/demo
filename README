@@ -173,6 +173,8 @@ imx6q/                 imx6q的平台下的专属程序
 	 DmaDoppler-II.c   DMA的驱动 -- 实际使用程序
 	 OCOTP_CTRL.txt    作为IMX6Q全球唯一的标示,详见文件
 
+QThread/               Qt多线程编程中的moveToThread	 
+
 QKeyEvent/             使用按钮，模拟键盘的方向和确定按键，
 						以及键盘事件的处理           
 
