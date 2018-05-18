@@ -1,5 +1,6 @@
 #!/bin/sh
 ./configure \
+-prefix $PWD/_install_ \
 -opensource \
 -confirm-license \
 -release -shared \
