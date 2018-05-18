@@ -110,7 +110,7 @@ shell.txt       工作中经常使用的那些shell命令，有不方便记的
 
 eval.sh         从字符串拼接的变量名中取值
 
-qt移植.docx     qt4的检查编译，移植
+qt移植/         qt从下载源码到使用的移植全过程
 
 dnw4linux       dnw工具用于usb烧写镜像 
 				Makefile多目录编程

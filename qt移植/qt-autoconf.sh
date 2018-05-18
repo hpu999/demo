@@ -1,0 +1,36 @@
+#!/bin/sh
+./configure \
+-opensource \
+-confirm-license \
+-release -shared \
+-embedded arm \
+-xplatform qws/linux-arm-g++ \
+-depths 16,18,24,32 \
+-fast \
+-optimized-qmake \
+-pch \
+-qt-sql-sqlite \
+-qt-libjpeg \
+-qt-zlib \
+-qt-libpng \
+-qt-freetype \
+-little-endian -host-little-endian \
+-no-qt3support \
+-no-libtiff -no-libmng \
+-no-opengl \
+-no-mmx -no-sse -no-sse2 \
+-no-3dnow \
+-no-openssl \
+-no-webkit \
+-no-qvfb \
+-no-phonon \
+-no-nis \
+-no-opengl \
+-no-cups \
+-no-glib \
+-no-xcursor -no-xfixes -no-xrandr -no-xrender \
+-no-separate-debug-info \
+-nomake examples -nomake tools -nomake docs \
+-qt-mouse-tslib \
+-I/home/ws/project/phascan-mini/tslib-1.1/build/include \
+-L/home/ws/project/phascan-mini/tslib-1.1/build/lib

@@ -1,0 +1,38 @@
+移植步骤：
+0. qt移植.docx文件作为qt移植的参考
+1. 移植tslib 参考：https://blog.csdn.net/hpu11/article/details/53105947
+2. 下载qt源码 qt-everywhere-opensource-src-4.8.6.tar.gz
+3. 解压源码 tar xvf qt-everywhere-opensource-src-4.8.6.tar.gz
+4. cd qt-everywhere-opensource-src-4.8.6 
+5. 修改：mkspecs/qws/linux-arm-g++/qmake.conf 文件（添加lts参数）
+   vi mkspecs/qws/linux-arm-g++/qmake.conf
+   QMAKE_CC                = arm-linux-gcc
+   QMAKE_CXX               = arm-linux-g++
+   修改为：
+   QMAKE_CC                = arm-none-linux-gcc -lts //自己的交叉编译器 
+   QMAKE_CXX               = arm-none-linux-g++ -lts //自己的交叉编译器
+
+   本文件的其他地方也照此模样修改
+
+6. ./qt-autoconf.sh 进行qt配置(将qt-autoconf.sh拷贝到qt源码目录下)
+7. make 开始编译 // 需要的时间较长
+8. make install 开始安装 
+9. 将编译安装完成的所有文件以及tslib库全部移植到开发板的/opt目录下
+10. 在开发板上etc/profile文件后添加 
+
+   export QTDIR=/opt/qt-4.8
+   export QWS_MOUSE_PROTO=tslib:/dev/input/event0
+   export TSLIB_DIR=/opt/tslib
+   export TSLIB_TSDEVICE=/dev/input/event0
+   export TSLIB_CALIBFILE=/etc/pointercal
+   export TSLIB_CONFFILE=/etc/ts.conf
+   export TSLIB_PLUGINDIR=$TSLIB_DIR/lib/ts
+   export TSLIB_CONSOLEDEVICE=none
+   export TSLIB_FBDEVICE=/dev/fb0
+   export QT_QWS_FONTDIR=$QTDIR/lib/fonts
+
+
+   export LD_LIBRARY_PATH=$QTDIR/lib:$TSLIB_DIR/lib:$LD_LIBRARY_PATH
+   export PATH=$TSLIB_DIR/bin:$PATH
+
+11. 编写qt程序，就可以依赖编译好的库进行在arm板子上运行
