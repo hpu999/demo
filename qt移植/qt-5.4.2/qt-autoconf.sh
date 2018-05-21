@@ -1,0 +1,26 @@
+#!/bin/sh
+./configure \
+	-prefix _install_ \
+	-confirm-license \
+	-opensource \
+	-release  \
+	-make libs \
+	-xplatform linux-arm-gnueabi-g++ \
+	-optimized-qmake \
+	-pch \
+	-qt-sql-sqlite \
+	-qt-libjpeg \
+	-qt-libpng \
+	-qt-zlib \
+	-no-opengl \
+	-no-sse2 \
+	-no-openssl \
+	-no-nis \
+	-no-cups \
+	-no-icu \
+	-no-glib \
+	-no-dbus \
+	-no-xcb \
+	-no-xcursor -no-xfixes -no-xrandr -no-xrender \
+	-no-separate-debug-info \
+	-make examples -nomake tools -nomake tests -no-iconv
