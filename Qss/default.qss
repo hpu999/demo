@@ -1,0 +1,325 @@
+/* Base */
+QDialog QPushButton {
+    background-color: rgb(200, 200, 200);
+    outline: 0px;
+    border: 1px;
+    border-radius: 5px;
+    min-height: 40px;
+    min-width: 8ex;
+}
+
+MainWindow {
+  background-color: rgb(0, 0, 0);
+}
+
+/* Status Bar */
+StatusBar > Label {
+  font: 14px;
+  color:rgb(255,255,255);
+  background-color:rgb(210, 150, 0);
+}
+
+VersionLabel {
+  border-right: 1px solid qlineargradient(spread:repeat, x1:0, y1:0, x2:0, y2:1,
+    stop:0.05 rgba(210, 150, 0, 255),
+    stop:0.3 rgba(0, 0, 0, 255),
+    stop:0.7 rgba(0, 0, 0, 255),
+    stop:0.95 rgba(210, 150, 0, 255));
+}
+
+ScanAxisLabel, IndexAxisLabel, LayoutLabel, VelocityLabel, PrfLabel {
+	border-right: 1px solid qlineargradient(spread:repeat, x1:0, y1:0, x2:0, y2:1,
+    stop:0.05 rgba(210, 150, 0, 255),
+    stop:0.3 rgba(0, 0, 0, 255),
+    stop:0.7 rgba(0, 0, 0, 255),
+    stop:0.95 rgba(210, 150, 0, 255));
+	border-left: 1px solid qlineargradient(spread:repeat, x1:0, y1:0, x2:0, y2:1,
+    stop:0.05 rgba(210, 150, 0, 255),
+    stop:0.3 rgba(255, 255, 255, 255),
+    stop:0.7 rgba(255, 255, 255, 255),
+    stop:0.95 rgba(210, 150, 0, 255));
+}
+
+TimeLabel {
+	border-left: 1px solid qlineargradient(spread:repeat, x1:0, y1:0, x2:0, y2:1,
+    stop:0.05 rgba(210, 150, 0, 255),
+    stop:0.3 rgba(255, 255, 255, 255),
+    stop:0.7 rgba(255, 255, 255, 255),
+    stop:0.95 rgba(210, 150, 0, 255));
+}
+
+/* Wizard */
+Wizard > QPushButton {
+  font: 26pt;
+  border-radius: 0px;
+  border: 1px groove white;
+  border-style: outset;
+}
+
+WizardDialog > QPushButton:focus {
+  border: 1px groove black;
+}
+
+/* Main Menu */
+MainMenu {
+  background-color: transparent;
+}
+
+MainMenu QListWidget {
+  font: 10pt;
+  background-color: transparent;
+  color: white;
+  /*background-color: rgb(0, 130, 195);*/
+  /*border-radius: 2px;*/
+  border: 0px;
+  outline: 0px;
+}
+
+MainMenu QListWidget#main_menu {
+  font: 12pt;
+}
+
+MainMenu > QListWidget::item {
+  padding-left: 5px;
+  min-height: 40px;
+  max-height: 40px;
+  /*border-bottom:1px solid #DBDBDB;*/
+  border-bottom:1px solid;
+  border-radius: 5px;
+  background-color: rgb(0, 130, 195);
+}
+
+MainMenu QListWidget::Item:disabled {
+  background-color: gray;
+}
+
+MainMenu > QListWidget#main_menu::item {
+  min-height: 42px;
+  max-height: 42px;
+}
+
+MainMenu QListWidget::item:selected:!active {
+  color: yellow;
+}
+
+MainMenu QListWidget::item:selected:active {
+  padding-left: 8px;
+  color: yellow;
+  background-color: rgb(0, 100, 180);
+}
+
+
+/* Menu Item Style Sheet */
+MenuItem QLabel, MeasureWidget QLabel {
+  border-top:0px;
+  border-bottom:0px;
+  font: 12pt;
+  color: white;
+  background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1,
+    stop:0.158192 rgba(0, 0, 0, 255),
+    stop:0.559322 rgba(0, 130, 195, 255));
+  border-left:1px solid qlineargradient(spread:pad, x1:0.5, y1:0.15, x2:0.5, y2:1,
+    stop:0.158192 rgba(255, 255, 255, 255),
+    stop:0.757062 rgba(0, 130, 195, 255));
+  border-right:1px solid qlineargradient(spread:pad, x1:0.5, y1:0.15, x2:0.5, y2:1,
+    stop:0.158192 rgba(0, 0, 0, 255),
+    stop:0.757062 rgba(0, 130, 195, 255));
+}
+
+MenuItem QPushButton, SpinMenuItem QLabel, MeasureWidget QPushButton {
+  background-position: center;
+  font: 12pt;
+  background-color:rgba(0, 130, 195);
+  border: 0px solid black;
+  color: yellow;
+  border-left:1px solid qlineargradient(spread:reflect, x1:0.49435, y1:0.068, x2:0.50565, y2:0.75,
+    stop:0.158192 rgba(0, 130, 195, 255),
+    stop:0.559322 rgba(255, 255, 255, 255));
+  border-right:1px solid qlineargradient(spread:reflect, x1:0.5, y1:0.028, x2:0.5, y2:1,
+    stop:0.158192 rgba(0, 130, 195, 255),
+    stop:0.559322 rgba(0, 0, 0, 255));
+}
+
+/* ComboMenu and MultiComboMenu */
+ComboMenuItem QMenu, MultiComboMenuItem QMenu {
+  padding: 0px;
+}
+
+ComboMenuItem QMenu::item::selected, MultiComboMenuItem QMenu::item::selected {
+  color: yellow;
+  background-color: rgba(100, 160, 255, 225);
+}
+
+ComboMenuItem QMenu::item, MultiComboMenuItem QMenu::item {
+  border-bottom:1px solid #DBDBDB;
+  background-color: transparent;
+  height: 35px;
+}
+
+ComboMenuItem QMenu::item {
+  padding-left: 15px;
+  padding-right: 10px;
+}
+
+MultiComboMenuItem QMenu::item {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* SpinMenuItem */
+SpinMenuItem > QLineEdit {
+  color: rgb(255, 255, 255);
+  border-top:0px;
+  border-bottom:0px;
+  font: 12pt;
+  qproperty-alignment:AlignCenter;
+  color:white;
+  background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1,
+    stop:0.158192 rgba(0, 0, 0, 255),
+    stop:0.559322 rgba(0, 130, 195, 255));
+  border-left:1px solid qlineargradient(spread:pad, x1:0.5, y1:0.15, x2:0.5, y2:1,
+    stop:0.158192 rgba(255, 255, 255, 255),
+    stop:0.757062 rgba(0, 130, 195, 255));
+  border-right:1px solid qlineargradient(spread:pad, x1:0.5, y1:0.15, x2:0.5, y2:1,
+    stop:0.158192 rgba(0, 0, 0, 255),
+    stop:0.757062 rgba(0, 130, 195, 255));
+}
+
+SpinMenuItem QLineEdit:disabled, ComboMenuItem QLabel:disabled, MultiComboMenuItem QLabel:disabled, LabelMenuItem QLabel:disabled {
+  background-color: gray;
+}
+
+SpinMenuItem QLineEdit:focus {
+  color: black;
+  background-color: white;
+  selection-color: black;
+  selection-background-color: rgba(255,255,255,255);
+}
+
+MeasureWidget QPushButton {
+  color: white;
+}
+
+BaseMenu > QWidget{
+  border-left:  1px solid qlineargradient(spread:repeat, x1:0.5, y1:0, x2:0.5, y2:1,
+    stop:0 rgba(0, 130, 195, 255),
+    stop:0.1 rgba(0, 130, 195, 255),
+    stop:0.333 rgba(255, 255, 255, 255),
+    stop:0.667 rgba(255, 255, 255, 255),
+    stop:0.9 rgba(0, 130, 195, 255),
+    stop:1 rgba(0, 130, 195, 255));
+  border-right: 1px solid qlineargradient(spread:repeat, x1:0.5, y1:0, x2:0.5, y2:1,
+    stop:0 rgba(0, 130, 195, 255),
+    stop:0.1 rgba(0, 130, 195, 255),
+    stop:0.333 rgba(0, 0, 0, 255),
+    stop:0.667 rgba(0, 0, 0, 255),
+    stop:0.9 rgba(0, 130, 195, 255),
+    stop:1 rgba(0, 130, 195, 255));
+  background-color:  qlineargradient(spread:repeat, x1:0.5, y1:0, x2:0.5, y2:1,
+    stop:0 rgba(0, 130, 195, 255),
+    stop:0.666 rgba(0, 130, 195, 255),
+    stop:0.667 rgba(0, 0, 0, 255),
+    stop:0.718730666 rgba(0, 0, 0, 255),
+    stop:0.852440666 rgba(0, 130, 195, 255));
+}
+
+/* IconsBar */
+IconsBar #topWidget {
+  background-color:rgb(0, 130, 195);
+}
+
+IconsBar #bottomWidget {
+  background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1,
+    stop:0.158192 rgba(0, 0, 0, 255),
+    stop:0.559322 rgba(0, 130, 195, 255));
+}
+
+IconsBar Label {
+  font: 9pt;
+}
+
+/* Display */
+ScanDisplay > QLabel {
+  background-color:rgb(0, 90, 130);
+  color:white;
+  min-height: 10px;
+  max-height: 10px;
+  font: 14px;
+}
+
+ScanDisplay > ScanView {
+  background-color:black;
+  border: 0px;
+}
+
+/* line */
+Line {
+  background-color:rgb(0, 90, 130);
+  border-radius: 3px;
+}
+
+/* probe dialog */
+
+/* wedge dialog */
+WedgeDialog {
+  background-color: white;
+}
+
+QTabWidget::pane { /* The tab widget frame */
+    border-top: 2px solid #C2C7CB;
+    position: absolute;
+    top: -0.5em;
+}
+
+QTabWidget::tab-bar {
+    alignment: center;
+}
+
+/* Style the tab using the tab sub-control. Note that
+    it reads QTabBar _not_ QTabWidget */
+QTabBar::tab {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+    border: 2px solid #C4C4C3;
+    border-bottom-color: #C2C7CB; /* same as the pane color */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    min-height: 4ex;
+    padding: 2px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #fafafa, stop: 0.4 #f4f4f4,
+                                stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
+}
+
+QTabBar::tab:selected {
+    border-color: #9B9B9B;
+    border-bottom-color: #C2C7CB; /* same as pane color */
+}
+
+
+/* SysInfoDialog */
+SysInfoDialog {
+    background-color: rgb(10, 130, 195);
+    outline: 0px;
+}
+
+/* Numeric Keypad */
+NumericKeypad > PushButton{
+    border: 1px;
+    border-radius: 0px;
+    border-color: black;
+}
+
+NumericKeypad > Label{
+    background-color: white;
+    border: 0px;
+}
+
+NumericKeypad > LineEdit{
+    border: 0px;
+}

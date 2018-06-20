@@ -138,6 +138,8 @@ ioctl_driver/   构造ioctl的命令的解析
 
 select_driver/  select()函数对应的底层驱动函数的开发例程select() --> poll()
 
+Qss/            Qt开发的图形界面程序的美化, qss文件的编写
+
 Qtime/          QT get System Time
 
 usb/usb.c       基于libusb库的usb免驱通用程序
