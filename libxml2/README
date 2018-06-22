@@ -1,0 +1,9 @@
+# 利用libxml2的创建，解析，修改xml文件
+
+编译：
+g++ 源文件 -o 输出文件 -I"libxml2的头文件安装路径" -lxml2
+
+示例:
+libxml2的头文件与库放到了/usr/local目录下
+gcc parserXmlFile.cpp -o parserXmlFile -I/usr/local/include/libxml2/ -L/usr/local/lib/libxml2 -lxml2
+

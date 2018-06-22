@@ -78,6 +78,8 @@ fb/fb.c         存放关于FrameBuffer 即/dev/fb的信息操作编程
    fbgrab-1.2.tar.gz |  该截屏程序依赖zlib和png的库，一般平台只要是有图像的
    fbgrab-1.1.tar.gz /  自然也都有这两个库的存在
 
+libxml2/        利用libxml2的创建，解析，修改xml文件
+
 showMem/        Qt界面显示系统上U盘，硬盘的存储信息
 
 QtDemo          存放一些Qt开发过程中有效的示例，或者工程中的源码
