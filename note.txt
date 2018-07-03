@@ -50,22 +50,59 @@
 五、ARM的基础知识
 
 六、嵌入式内核移植---bootloader/kernel/rootfs
-
+	uboot/kernel/rootfs移植的时候，编译出的文件大小
+	Phascan    : uboot[192K] uImage[3M] rootfs[308M]
+	Phascan-II : uboot[496K] zImage[5M] rootfs[358M]
+ 
 七、驱动的相关的知识
 
 八、做过的项目
     广州：Phascan、Flexscan、Phascan-II
+	Doppler-II.c  400多行
+	Doppler.c     300多行
+
     上海：TCP的编程、智能社区
 
 九、工作的经历的时间表
-    1. 焦作光源电气股份有限公    --- 2013.7 ~ 2014.4
-    2. 上海中伏新能源股份有限公司 --- 2014.7 ~ 2016.6
-    3. 广州多浦乐电子科技有限公司 --- 2016.8 ~ 2018.7
+	2013.7 ~ 2016.7 上海
+		2013.7 ~ 2015.1  上海做应用程序开发
+			网络编程方面
+		2015.2 ~ 2016.7  上海做驱动程序开发
+			基于s5pv210平台的开发
+	2016.8 ~ 2018.7 广州 广州做驱动程序开发
+			基于imx6q ,omap3530平台的开发
 
 十、熟练使用的工具
-    git、tftp、nfc、ssh、minicom、vim、qtcreator、virtual box
+    git、tftp、nfc、ssh、minicom、vim、qtcreator、virtual box，df，du
+	git的常用操作
+	tftp的传输
+	nfs的使用
+	ssh的使用
+	vim的常用操作，配置，文本的批量操作
+	qtcreator的集成开发环境的配置
+	虚拟机的使用
 
 十一、关注的科技新闻
-    AI、AR、VR、区块链、云服务
+    ARM，AI、AR、VR、区块链、云服务
 
 十二、工作感受
+
+十三、读过的书，作者、博客
+	精通linux驱动设备的开发
+	linux设备驱动程序 第三版 2.6.x
+	linux内核的设计与实现
+	linux系统编程 
+	qt快速入门
+	unix编程艺术
+	shell编程
+
+十四、调试过程中遇到的问题
+	与FPGA的联调, EIM接口的调试，SPI接口的调试(时序与片选有关)
+	DMA驱动的调试
+	opengles2.0的移植，环境整体不一样
+	更新FPGA程序的调试, 字节的8位需反向, 需单片机的协助
+	FPGA对SPI更新的影响(由于人员更换，FPGA代码重构，
+		FPGA的一个引脚被配置为输出所引起的SPI的数据输出信号
+		电平处于2.2v，ARM无法识别数据所致)
+
+	
