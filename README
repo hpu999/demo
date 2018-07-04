@@ -211,3 +211,5 @@ pipe/                linux 管道编程
 
 get_disk_info.c     使用linux c获取硬盘(U盘，硬盘...)的详细信息
 					编译方法： gcc get_disk_info.c -lblkid
+
+note.txt            找工作，面试的内容
