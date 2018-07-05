@@ -1,0 +1,82 @@
+#!/bin/sh
+
+MOUNT=/bin/mount
+UMOUNT=/bin/umount
+LOSETUP=/sbin/losetup
+MKDIR=/bin/mkdir
+RM=/bin/rm
+CP=/bin/cp
+CHROOT=/usr/sbin/chroot
+
+MOUNT_DIR=/system
+MMCBLK0P1=/media/mmcblk2p1
+BACKUP=/backup
+
+IMG_FILE=/Update.img
+DRIVE=`$LOSETUP -f`
+
+update_boot () {
+	$MKDIR $MMCBLK0P1
+
+	$MOUNT /dev/mmcblk2p1 $MMCBLK0P1
+
+	$CP $MOUNT_DIR/boot/* $MMCBLK0P1 -rfd
+
+	dd if=$MOUNT_DIR/boot/barebox.bin of=/dev/mmcblk2 bs=512 skip=2 seek=2
+
+	/bin/sync
+
+	$UMOUNT $MMCBLK0P1
+
+	$RM $MMCBLK0P1 -rf
+}
+
+update_rootfs () {
+	$MOUNT --bind /dev/ $MOUNT_DIR/rootfs/dev/
+	
+	$CHROOT $MOUNT_DIR/rootfs /usr/bin/update-rootfs.sh 
+
+	$UMOUNT $MOUNT_DIR/rootfs/dev/
+}
+
+if [ $# -lt 1 ] ; then
+	echo "Usage: update-system <Updatepack>"
+	return 1
+fi
+
+# 解压升级包
+if [ -e "$IMG_FILE" ] ; then
+	rm $IMG_FILE
+fi
+
+unzip $1 -d /
+
+if [ $? -ne 0 ] ; then
+	$RM $IMG_FILE
+	return 1
+fi
+
+sync
+
+$LOSETUP $DRIVE $IMG_FILE
+
+$MKDIR $MOUNT_DIR
+
+$MOUNT $DRIVE $MOUNT_DIR
+
+update_boot
+
+update_rootfs
+
+$UMOUNT $MOUNT_DIR
+
+$LOSETUP -d $DRIVE
+
+$RM $MOUNT_DIR -rf
+
+# 删除升级包
+$RM /Update.img -rf
+
+sync
+
+echo "Ok!"
