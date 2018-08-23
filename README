@@ -54,9 +54,12 @@ timer/sleep.c  \
 	  rtc.c     |
 	  select.c /
 
-mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
-mmap_test.c     /        与mmap(映射)驱动的测试程序
-mmap_copy.c     使用mmap功能复制巨型文件
+mmap/
+    mmap_drv.c      \  字符驱动中用于数据通讯的mmap(映射)驱动
+    mmap_test.c     /        与mmap(映射)驱动的测试程序
+    mmap_drv2.c     \  字符驱动中用于数据通讯的mmap(映射)驱动
+    mmap_test2.c    /        与mmap(映射)驱动的测试程序
+    mmap_copy.c     使用mmap功能复制巨型文件
 
 psplash.zip     挂载文件系统的启动界面，进度条是几个小点
 				/*  将自己的图片文件转换成.h文件
