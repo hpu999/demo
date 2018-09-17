@@ -220,3 +220,5 @@ note.txt            找工作，面试的内容
 singleton/          两种c++单例模式的实现，并且保证了线程安全和内存泄漏
 
 update-system/      更新系统的固件
+
+ndk-demo.tar.7z     Android程序编译NDK工具的使用案例
