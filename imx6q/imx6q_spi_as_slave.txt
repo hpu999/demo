@@ -1,0 +1,1136 @@
+​
+SPI SLAVE驱动：
+修改代码路径：linux-3.0.101\arch\arm\configs\imx6_defconfig
+添加如下代码：
+#CONFIG_GTS_DEBUG_SPI2_SLAVE is not set
+CONFIG_GTS_SPI2_SLAVE=y
+修改代码路径：linux-3.0.101\arch\arm\mach-mx6\board-mx6q_sabreauto.c
+static const struct spi_imx_master mx6q_sabreauto_spi_data __initconst = {
+.chipselect     = mx6q_sabreauto_spi_cs,
+.num_chipselect = ARRAY_SIZE(mx6q_sabreauto_spi_cs),
+#ifdef CONFIG_GTS_SPI2_SLAVE
+.master_mode = 1,//spi master 置1
+#endif
+};
+#ifdef CONFIG_GTS_SPI2_SLAVE//添加spi slave 数据结构体
+static const struct spi_imx_master mx6q_sabreauto_spi1_slave_data __initconst = {
+.chipselect     = mx6q_sabreauto_spi1_cs,
+.num_chipselect = ARRAY_SIZE(mx6q_sabreauto_spi1_cs),
+.master_mode = 0,//spi as slave 
+};
+#endif
+#ifdef CONFIG_GTS_SPI2_SLAVE//添加spi slave 板级信息结构体
+static struct spi_board_info GTS_spi1_slave_board_info[] __initdata = {
+{
+.modalias
+= "spidev",
+.max_speed_hz
+= 2000000,
+.bus_num  = 1,
+.chip_select
+= 0,
+.mode=SPI_MODE_0,
+},
+};
+#endif
+static void spi_device_init(void)//spi slave 从设备初始化
+{
+#ifdef CONFIG_GTS_SPI2_SLAVE
+spi_register_board_info(GTS_spi1_slave_board_info,
+ARRAY_SIZE(GTS_spi1_slave_board_info));
+#endif
+}
+#ifdef CONFIG_GTS_SPI2_SLAVE//添加spi  slave从设备
+imx6q_add_ecspi(1,&mx6q_sabreauto_spi1_slave_data);
+#endif
+修改代码路径：linux-3.0.101\arch\arm\plat-mxc\include\mach\spi.h
+struct spi_imx_master {
+int  *chipselect;
+int  num_chipselect;
+#ifdef CONFIG_GTS_SPI2_SLAVE
+int   master_mode;
+#endif
+};
+修改代码路径：linux-3.0.101\drivers\spi\Kconfig
+# (slave support would go here)
+config GTS_SPI2_SLAVE
+boolean "Enable the spi2 work in slave mode"
+default y
+help
+  add by jimmy_lee,we use the spi2 to work in slave mode in GTS
+  project.Close it if you don't know gts or you don't need the 
+  slave mode.
+  
+config GTS_DEBUG_SPI2_SLAVE
+boolean "Enable the debug for spi2 worked in slave mode"
+default n
+help
+  add by jimmy_lee,we use the spi2 to work in slave mode in GTS
+  project.Close it if you don't know gts or you don't need to 
+  debug the slave mode.
+修改代码路径：linux-3.0.101\drivers\spi\spi_imx.c
+#ifdef CONFIG_GTS_SPI2_SLAVE
+#include <linux/spi/spidev.h>
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+#define MXC_INT_TDR (1 << 2)
+#define MXC_INT_RDR (1 << 3)
+#define MXC_INT_TC (1 << 7) /* Transfer complete */
+
+#define SPI_DEBUG  printk
+#endif
+
+struct spi_imx_data {
+struct spi_bitbang bitbang;
+
+struct completion xfer_done;
+void *base;
+int irq;
+struct clk *clk;
+unsigned long spi_clk;
+int *chipselect;
+
+unsigned int count;
+#ifdef CONFIG_GTS_SPI2_SLAVE
+int master_mode; 
+/*slave or master*/
+#endif
+void (*tx)(struct spi_imx_data *);
+void (*rx)(struct spi_imx_data *);
+void *rx_buf;
+const void *tx_buf;
+unsigned int txfifo; /* number of words pushed in tx FIFO */
+
+struct spi_imx_devtype_data devtype_data;
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    struct spi_master *slave;
+    u8     *slave_rx_buf;/* the size defined by GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF*/
+    int    *slave_rx_w_index;
+    int    *slave_rx_r_index;
+
+    u8     *slave_tx_buf;/* the size defined by GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF*/
+    int    *slave_tx_w_index;
+    int    *slave_tx_r_index;
+
+    int    slave_tx_w_cnt;/*the num user want to translate through spi2 slave to master*/
+#endif
+
+};
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+#define SPI_IMX2_3_CTRL_BURST_LEN(cs) 
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+#define SPI_IMX2_3_CONFIG_DATACTL(cs) (1 << ((cs) + 16))
+#define SPI_IMX2_3_CONFIG_SCLKCTL(cs) (1 << ((cs) + 20))
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+#define SPI_IMX2_3_INT_TRCEN (1<<7) /* Transfer complete */
+#define SPI_IMX2_3_DMA     0x14
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+#define SPI_IMX2_3_INT_RDREN (1 <<  4)
+#define SPI_IMX2_3_INT_TDREN (1 <<  1)
+#define SPI_IMX2_3_STAT_TE (1 <<  0)
+#endif
+
+static void __maybe_unused spi_imx2_3_intctrl(struct spi_imx_data *spi_imx, int enable)
+{
+unsigned val = 0;
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+u32 reg;
+#endif
+
+/* add by zxm 20141030 in shanghai begin */
+#ifdef CONFIG_GTS_SPI2_SLAVE
+if(spi_imx->master_mode == 0)
+{
+if(enable&MXC_INT_TDR)
+val|=SPI_IMX2_3_INT_TDREN;
+if(enable&MXC_INT_RDR)
+val|=SPI_IMX2_3_INT_RDREN;
+if(enable&MXC_INT_TC)
+val|=SPI_IMX2_3_INT_TRCEN;
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+SPI_DEBUG("spi2_as_slave-1 ==%s=intctrl init in slave mode:%d=val: %d\n",__func__,spi_imx->master_mode,val);
+#endif
+}
+#endif
+
+if (enable & MXC_INT_TE)
+val |= SPI_IMX2_3_INT_TEEN;
+
+if (enable & MXC_INT_RR)
+val |= SPI_IMX2_3_INT_RREN;
+
+writel(val, spi_imx->base + SPI_IMX2_3_INT);
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+if(spi_imx->master_mode == 0)
+{
+    SPI_DEBUG("spi2_as_slave-2 ==%s mode:%d=regval: %x\n",__func__,spi_imx->master_mode,reg);
+}
+#endif
+}
+
+static int __maybe_unused spi_imx2_3_config(struct spi_imx_data *spi_imx,
+struct spi_imx_config *config)
+{
+u32 ctrl = SPI_IMX2_3_CTRL_ENABLE, cfg = 0;
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE 
+u32 reg ,reg1= 0;
+#endif
+/*
+* The hardware seems to have a race condition when changing modes. The
+* current assumption is that the selection of the channel arrives
+* earlier in the hardware than the mode bits when they are written at
+* the same time.
+* So set master mode for all channels as we do not support slave mode.
+*/
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+    if(spi_imx->master_mode == 0) 
+    {
+        reg = readl(spi_imx->base + SPI_IMX2_3_CTRL);
+        reg1 =  readl(spi_imx->base + SPI_IMX2_3_CONFIG);
+        SPI_DEBUG("%s spi2_as_slave-1 ctrl reg:%x,config:%x\n",__func__,reg,reg1);
+    }
+    else
+    {
+#endif
+#ifdef CONFIG_GTS_SPI2_SLAVE
+if(spi_imx->master_mode != 0)
+ctrl |= SPI_IMX2_3_CTRL_MODE_MASK;
+#endif
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE 
+}
+#endif
+
+/* set clock speed */
+ctrl |= spi_imx2_3_clkdiv(spi_imx->spi_clk, config->speed_hz);
+
+/* set chip select to use */
+ctrl |= SPI_IMX2_3_CTRL_CS(config->cs);
+
+ctrl |= (config->bpw - 1) << SPI_IMX2_3_CTRL_BL_OFFSET;
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    if(spi_imx->master_mode != 0) 
+    {
+#endif
+    cfg |= SPI_IMX2_3_CONFIG_SBBCTRL(config->cs);
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    }
+#endif
+
+if (config->mode & SPI_CPHA)
+cfg |= SPI_IMX2_3_CONFIG_SCLKPHA(config->cs);
+
+if (config->mode & SPI_CPOL)
+#ifdef CONFIG_GTS_SPI2_SLAVE
+{
+#endif
+cfg |= SPI_IMX2_3_CONFIG_SCLKPOL(config->cs);
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    if(spi_imx->master_mode == 0) 
+    {
+
+cfg |= SPI_IMX2_3_CONFIG_SCLKCTL(config->cs); //1
+}
+}
+#endif
+/* modi by zxm 20141030 in shanghai end */
+
+if (config->mode & SPI_CS_HIGH)//jimmy_lee.2014.11.28 remark:question,we never config SPI_CS_HIGH
+cfg |= SPI_IMX2_3_CONFIG_SSBPOL(config->cs);
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    if(spi_imx->master_mode == 0) 
+    {
+        cfg |= SPI_IMX2_3_CONFIG_DATACTL(config->cs);
+    #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+    printk("spi2_as_slave-2 %s ctrl :%08x cfg :%08x\n",__func__,ctrl , cfg);
+    #endif
+    }
+#endif
+
+writel(ctrl, spi_imx->base + SPI_IMX2_3_CTRL);
+writel(cfg, spi_imx->base + SPI_IMX2_3_CONFIG);
+
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+    if(spi_imx->master_mode == 0) 
+    {
+reg =  readl(spi_imx->base + SPI_IMX2_3_CTRL);
+reg1 =  readl(spi_imx->base + SPI_IMX2_3_CONFIG);
+    printk("spi2_as_slave-3 %s ctrl :%08x cfg :%08x\n",__func__,reg , reg1);
+    }
+#endif
+
+return 0;
+}
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+
+
+static void spi_imx_slave_write_init(struct spi_device *spi)
+{
+struct spi_imx_data *spi_imx = spi_master_get_devdata(spi->master);
+if(spi_imx->slave_tx_w_cnt < GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF/2){
+if (0==spi_imx->slave_tx_w_cnt)
+{
+spi_imx->slave_tx_w_cnt++;
+spi_imx->devtype_data.intctrl(spi_imx,MXC_INT_RDR | MXC_INT_TDR); //go to spi_imx2_3_intctrl
+}
+else
+{
+spi_imx->slave_tx_w_cnt++;
+}
+}
+}
+
+
+static void spi_imx_slave_buff_setup(struct spi_device *spi)
+{
+struct spi_imx_data *spi_imx = spi_master_get_devdata(spi->master);
+struct spidev_data
+*spidev = spi_get_drvdata(spi);
+
+spi_imx->slave_rx_buf = spidev->slave_rx_buf;
+    spi_imx->slave_rx_r_index = &spidev->slave_rx_r_index;
+    spi_imx->slave_rx_w_index = &spidev->slave_rx_w_index;
+   
+    spi_imx->slave_tx_buf = spidev->slave_tx_buf;
+    spi_imx->slave_tx_r_index = &spidev->slave_tx_r_index;
+    spi_imx->slave_tx_w_index = &spidev->slave_tx_w_index;
+    spi_imx->slave_tx_w_cnt = 0;
+    clk_enable(spi_imx->clk);
+    spi_imx->devtype_data.intctrl(spi_imx,MXC_INT_RDR | MXC_INT_TDR); //go to spi_imx2_3_intctrl
+}
+
+static int spi2_imx_slave_setup(struct spi_device *spi)
+{
+return 0;
+}
+
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+
+static void gts_spi_slave_rx(struct spi_imx_data *spi_imx)
+{
+int    *wip=spi_imx->slave_rx_w_index;
+u32    data = 0;
+int    i;
+
+    data = readl(spi_imx->base + MXC_CSPIRXDATA);
+
+    for (i=0;i<2;i++)
+    {
+        if (i==0)
+            spi_imx->slave_rx_buf[*wip]=(data&0xff00)>>8;
+        else
+            spi_imx->slave_rx_buf[*wip]=(data&0xff);
+         
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+        SPI_DEBUG("[spi2 slave rx]addr:%x,we get:%x,data:%x\n",spi_imx->slave_rx_buf,spi_imx->slave_rx_buf[*wip],data);
+#endif
+        (*wip)++;
+
+        if (*wip>=GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF)
+            *wip=0;
+
+        if (*wip==*(spi_imx->slave_rx_r_index))
+        {
+            (*spi_imx->slave_rx_r_index)++;
+if (*spi_imx->slave_rx_r_index>=GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF)
+*spi_imx->slave_rx_r_index = 0;
+           
+            SPI_DEBUG("[spi slave err]slave rx buffer overflow!!\n");
+        }
+    }
+}
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+
+static void gts_spi_slave_tx(struct spi_imx_data *spi_imx)
+{
+int    *rip = spi_imx->slave_tx_r_index;
+u32    tx_data = 0;
+int    i;
+
+    for (i=0;i<2;i++)
+    {
+if (i==0)
+tx_data |= spi_imx->slave_tx_buf[*rip] << 8;
+        else
+            tx_data |= spi_imx->slave_tx_buf[*rip];
+         
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+        SPI_DEBUG("[spi2 slave tx]addr:%x,we get:%x,data:%x,r_index:%d\n",spi_imx->slave_tx_buf,spi_imx->slave_tx_buf[*rip],tx_data,*rip);
+#endif
+        (*rip)++;
+
+        if (*rip>=GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF)
+            *rip=0;
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+        if (*rip==*(spi_imx->slave_tx_w_index))
+        {
+            SPI_DEBUG("[spi slave]slave tx buffer is empty!!\n");
+        }
+#endif
+    }
+     writel(tx_data,spi_imx->base + MXC_CSPITXDATA);
+}
+#endif
+
+static irqreturn_t spi_imx_isr(int irq, void *dev_id)
+{
+struct spi_imx_data *spi_imx = dev_id;
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+u32 cnt = 0;
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    if (spi_imx->master_mode == 0)
+    {
+    #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+        cnt=0;
+        SPI_DEBUG("[spi2 as slave]spi_imx_isr\n");
+        gts_spi_dump_all_regs(spi_imx);
+    #endif
+        while (spi_imx->devtype_data.rx_available(spi_imx))
+        {
+            gts_spi_slave_rx(spi_imx);
+        #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+            cnt++;
+            if (cnt>200)
+            {
+                cnt=0;
+                SPI_DEBUG("[spi2 as slave err]slave data recv too much\n");
+            }
+        #endif
+        }
+
+
+if (spi_imx->slave_tx_w_cnt>0)
+{
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+printk("[spi2 as slave]spi_slave_write_state reg 0x%08x,intflag:%d\n",readl(spi_imx->base + SPI_IMX2_3_STAT) ,spi_imx->slave_tx_w_cnt);
+#endif
+if((readl(spi_imx->base + SPI_IMX2_3_STAT) & SPI_IMX2_3_STAT_TE)){
+spi_imx->slave_tx_w_cnt--;
+
+gts_spi_slave_tx(spi_imx);
+}
+}
+if(spi_imx->slave_tx_w_cnt == 0){
+spi_imx->devtype_data.intctrl(spi_imx,MXC_INT_RDR );
+return 0;
+}
+
+       #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+       cnt++;
+       if (cnt>200)
+       {
+        cnt=0;
+        SPI_DEBUG("[spi slave err]slave data recv too much\n");
+       }
+       #endif
+                
+        return IRQ_HANDLED;
+    }
+#endif
+
+while (spi_imx->devtype_data.rx_available(spi_imx)) {
+spi_imx->rx(spi_imx);
+spi_imx->txfifo--;
+}
+
+if (spi_imx->count) {
+spi_imx_push(spi_imx);
+return IRQ_HANDLED;
+}
+
+if (spi_imx->txfifo) {
+/* No data left to push, but still waiting for rx data,
+* enable receive data available interrupt.
+*/
+spi_imx->devtype_data.intctrl(
+spi_imx, MXC_INT_RR);
+return IRQ_HANDLED;
+}
+
+spi_imx->devtype_data.intctrl(spi_imx, 0);
+complete(&spi_imx->xfer_done);
+
+return IRQ_HANDLED;
+}
+
+static int __devinit spi_imx_probe(struct platform_device *pdev)
+{
+struct spi_imx_master *mxc_platform_info;
+struct spi_master *master;
+struct spi_imx_data *spi_imx;
+struct resource *res;
+#ifdef CONFIG_GTS_SPI2_SLAVE 
+struct spi_imx_config config;
+#endif
+int i, ret;
+
+mxc_platform_info = dev_get_platdata(&pdev->dev);
+if (!mxc_platform_info) {
+dev_err(&pdev->dev, "can't get the platform data\n");
+return -EINVAL;
+}
+
+master = spi_alloc_master(&pdev->dev, sizeof(struct spi_imx_data));
+if (!master)
+return -ENOMEM;
+
+platform_set_drvdata(pdev, master);
+
+master->bus_num = pdev->id;
+master->num_chipselect = mxc_platform_info->num_chipselect;
+
+spi_imx = spi_master_get_devdata(master);
+
+/* add by zxm 20141030 in shanghai begin */
+#ifdef CONFIG_GTS_SPI2_SLAVE
+spi_imx->master_mode =mxc_platform_info->master_mode;
+    SPI_DEBUG("spi2_as_slave:id:%d,mode:%d,num:%d\n",pdev->id,spi_imx->master_mode,master->num_chipselect);
+
+    if(spi_imx->master_mode == 0)
+    {
+        spi_imx->slave = spi_master_get(master);
+    }
+    else
+    {
+    spi_imx->bitbang.master = spi_master_get(master);
+    }
+#else
+spi_imx->bitbang.master = spi_master_get(master);
+#endif
+
+spi_imx->chipselect = mxc_platform_info->chipselect;
+
+for (i = 0; i < master->num_chipselect; i++) {
+if (spi_imx->chipselect[i] < 0)
+continue;
+ret = gpio_request(spi_imx->chipselect[i], DRIVER_NAME);
+if (ret) {
+while (i > 0) {
+i--;
+if (spi_imx->chipselect[i] >= 0)
+gpio_free(spi_imx->chipselect[i]);
+}
+dev_err(&pdev->dev, "can't get cs gpios\n");
+goto out_master_put;
+}
+}
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    if (spi_imx->master_mode != 0)//jimmy_lee.2014.11.28 remark:only for master
+    {
+#endif
+    spi_imx->bitbang.chipselect = spi_imx_chipselect;
+    spi_imx->bitbang.setup_transfer = spi_imx_setupxfer;
+    spi_imx->bitbang.txrx_bufs = spi_imx_transfer;
+spi_imx->bitbang.master->setup = spi_imx_setup;
+    spi_imx->bitbang.master->cleanup = spi_imx_cleanup;
+    spi_imx->bitbang.master->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH;
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    }
+    else
+    {
+    spi_imx->slave->setup = spi2_imx_slave_setup;
+        spi_imx->slave->cleanup = spi_imx_cleanup;
+        spi_imx->slave->mode_bits = SPI_MODE_0;
+        spi_imx->slave->buff_init = spi_imx_slave_buff_setup;
+        spi_imx->slave->slave_write = spi_imx_slave_write_init;
+    }
+#endif
+
+init_completion(&spi_imx->xfer_done);
+
+spi_imx->devtype_data =
+spi_imx_devtype_data[pdev->id_entry->driver_data];
+
+res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+if (!res) {
+dev_err(&pdev->dev, "can't get platform resource\n");
+ret = -ENOMEM;
+goto out_gpio_free;
+}
+
+if (!request_mem_region(res->start, resource_size(res), pdev->name)) {
+dev_err(&pdev->dev, "request_mem_region failed\n");
+ret = -EBUSY;
+goto out_gpio_free;
+}
+
+spi_imx->base = ioremap(res->start, resource_size(res));
+if (!spi_imx->base) {
+ret = -EINVAL;
+goto out_release_mem;
+}
+
+spi_imx->irq = platform_get_irq(pdev, 0);
+if (spi_imx->irq < 0) {
+ret = -EINVAL;
+goto out_iounmap;
+}
+
+ret = request_irq(spi_imx->irq, spi_imx_isr, 0, DRIVER_NAME, spi_imx);
+if (ret) {
+dev_err(&pdev->dev, "can't get irq%d: %d\n", spi_imx->irq, ret);
+goto out_iounmap;
+}
+
+spi_imx->clk = clk_get(&pdev->dev, NULL);
+if (IS_ERR(spi_imx->clk)) {
+dev_err(&pdev->dev, "unable to get clock\n");
+ret = PTR_ERR(spi_imx->clk);
+goto out_free_irq;
+}
+
+clk_enable(spi_imx->clk);
+spi_imx->spi_clk = clk_get_rate(spi_imx->clk);
+
+spi_imx->devtype_data.reset(spi_imx);
+#ifdef CONFIG_GTS_SPI2_SLAVE
+if(spi_imx->master_mode == 0)//slave
+{ 
+config.bpw = 16;
+config.mode = SPI_MODE_0;
+config.speed_hz = 2000000;
+config.cs = 2;
+spi_imx->devtype_data.config(spi_imx,&config);//go to spi_imx2_3_config
+}
+#endif
+
+spi_imx->devtype_data.intctrl(spi_imx, 0);
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    if (spi_imx->master_mode != 0)
+    {
+#endif
+    ret = spi_bitbang_start(&spi_imx->bitbang);
+    if (ret) {
+    dev_err(&pdev->dev, "bitbang start failed with %d\n", ret);
+    goto out_clk_put;
+    }
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    }
+    else
+    {
+        ret = spi_register_master(spi_imx->slave);
+
+    if (ret) {
+    SPI_DEBUG("[spi2 as slave]spi_register_master failed with %d\n", ret);
+    goto out_clk_put;
+    }
+    }
+#endif
+
+clk_disable(spi_imx->clk);
+
+dev_info(&pdev->dev, "probed\n");
+
+return ret;
+
+out_clk_put:
+clk_disable(spi_imx->clk);
+clk_put(spi_imx->clk);
+out_free_irq:
+free_irq(spi_imx->irq, spi_imx);
+out_iounmap:
+iounmap(spi_imx->base);
+out_release_mem:
+release_mem_region(res->start, resource_size(res));
+out_gpio_free:
+for (i = 0; i < master->num_chipselect; i++)
+if (spi_imx->chipselect[i] >= 0)
+gpio_free(spi_imx->chipselect[i]);
+out_master_put:
+spi_master_put(master);
+kfree(master);
+platform_set_drvdata(pdev, NULL);
+return ret;
+}
+
+修改代码路径：linux-3.0.101\drivers\spi\spidev.c
+
+#ifndef CONFIG_GTS_SPI2_SLAVE
+struct spidev_data {
+dev_t  devt;
+spinlock_t
+spi_lock;
+struct spi_device
+*spi;
+struct list_head
+device_entry;
+
+/* buffer is NULL unless this device is open (users > 0) */
+struct mutex
+buf_lock;
+unsigned  users;
+u8  *buffer;
+};
+#endif
+
+static ssize_t
+spidev_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
+{
+struct spidev_data
+*spidev;
+ssize_t  status = 0;
+#ifndef CONFIG_GTS_SPI2_SLAVE 
+/* chipselect only toggles at start or end of operation */
+if (count > bufsiz)
+return -EMSGSIZE;
+#endif
+
+spidev = filp->private_data;
+
+#ifdef CONFIG_GTS_SPI2_SLAVE 
+    if (GTS_SPI_DEFAULT_SLAVE_ID==spidev->spi->master->bus_num)
+    {
+        unsigned long
+missing;
+        //int             i;
+        
+        if (count>GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF)
+            return -EMSGSIZE;
+
+        if (spidev->slave_rx_r_index == spidev->slave_rx_w_index)
+            return -ENODATA;
+            #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+        printk("spi2_as_slave-0 rd index %d,wr index %d\n",spidev->slave_rx_r_index,spidev->slave_rx_w_index);
+        #endif
+        status=(spidev->slave_rx_w_index + GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF - spidev->slave_rx_r_index)%GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF;
+mutex_lock(&spidev->slave_rx_buf_lock);
+        if (spidev->slave_rx_r_index+status<=GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF)
+        {
+        #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+        int             i;
+            printk("addr:0x%08x,we can read %d byte\n",spidev->slave_rx_buf,status);
+            for (i=0;i<status;i++)
+            {
+                printk("%x ",spidev->slave_rx_buf[spidev->slave_rx_r_index+i]);
+            }
+            printk("\n");
+            #endif
+    missing = copy_to_user(buf, &spidev->slave_rx_buf[spidev->slave_rx_r_index], status);
+
+            if (missing == status)
+            {
+            mutex_unlock(&spidev->slave_rx_buf_lock);
+    return -EFAULT;
+    }
+    else
+    status = status - missing;
+   
+            //printk("we have read %d byte\n",status);
+
+            spidev->slave_rx_r_index+=status;
+            #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+            printk("spi2_as_slave-1 rd index %d,wr index %d\n",spidev->slave_rx_r_index,spidev->slave_rx_w_index);
+#endif
+            if (spidev->slave_rx_r_index>=GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF)
+            {
+                spidev->slave_rx_r_index= spidev->slave_rx_r_index%GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF;
+            }
+            #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+            printk("spi2_as_slave-2 rd index %d,wr index %d\n",spidev->slave_rx_r_index,spidev->slave_rx_w_index);
+#endif
+        }
+        else
+        {
+        ssize_t
+temp = 0;
+       
+            temp = GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF-spidev->slave_rx_w_index;
+            
+    missing = copy_to_user(buf, &spidev->slave_rx_buf[spidev->slave_rx_r_index], temp);
+
+            if (missing==temp)
+            {
+            mutex_unlock(&spidev->slave_rx_buf_lock);
+                return -EFAULT;
+}
+    if (0==missing)
+    {
+        spidev->slave_rx_r_index = 0;
+        missing = copy_to_user(buf+temp, &spidev->slave_rx_buf[spidev->slave_rx_r_index], status-temp);
+
+        status -= missing;
+                spidev->slave_rx_r_index+= (status-temp);
+    }
+    else
+    {
+        status -= missing;
+        spidev->slave_rx_r_index+=status;
+    }
+        }
+mutex_unlock(&spidev->slave_rx_buf_lock);
+        
+return status;
+        }
+#endif
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+if (count > bufsiz)
+return -EMSGSIZE;
+#endif
+
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE 
+    if (1==spidev->spi->master->bus_num)
+    {
+        spidev->spi->master->cleanup(spidev->spi);
+        return 0;
+    }
+#endif
+
+mutex_lock(&spidev->buf_lock);
+status = spidev_sync_read(spidev, count);
+if (status > 0) {
+unsigned long
+missing;
+
+missing = copy_to_user(buf, spidev->buffer, status);
+if (missing == status)
+status = -EFAULT;
+else
+status = status - missing;
+}
+mutex_unlock(&spidev->buf_lock);
+
+return status;
+}
+
+static ssize_t
+spidev_write(struct file *filp, const char __user *buf,
+size_t count, loff_t *f_pos)
+{
+struct spidev_data
+*spidev;
+ssize_t  status = 0;
+unsigned long
+missing;
+
+/* chipselect only toggles at start or end of operation */
+if (count > bufsiz)
+return -EMSGSIZE;
+
+spidev = filp->private_data;
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+if (GTS_SPI_DEFAULT_SLAVE_ID==spidev->spi->master->bus_num){
+if(count > GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF)
+return -EMSGSIZE;
+
+status = GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF - spidev->slave_tx_w_index;
+if(status >= count){
+mutex_lock(&spidev->slave_tx_buf_lock);
+missing = copy_from_user(&spidev->slave_tx_buf[spidev->slave_tx_w_index], buf, count);
+            if(missing<0||missing==count)
+            {
+            printk("[spi2 slave] spidev_write failed,%d\n",missing);
+            mutex_unlock(&spidev->slave_tx_buf_lock);
+            return -EFAULT;
+            }
+            spidev->slave_tx_w_index += count;
+           
+            #ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+            printk("[spi2 as slave]copy_from_user count = %d  buf_data1 = 0x%02x buf_data2 = 0x%02x\n",count,spidev->slave_tx_buf[spidev->slave_tx_w_index - 2],spidev->slave_tx_buf[spidev->slave_tx_w_index-1]);
+            printk("after receive user writed print tx_w_index = %d tx_r_index = %d \n",spidev->slave_tx_w_index,spidev->slave_tx_r_index);
+#endif
+if(spidev->slave_tx_w_index >= GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF)
+spidev->slave_tx_w_index = 0;
+            if (spidev->slave_tx_r_index == spidev->slave_tx_w_index){
+            spidev->slave_tx_r_index++;
+            if(spidev->slave_tx_r_index >= GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF)
+            spidev->slave_tx_r_index = 0;
+            printk("[spi2 as slave err]slave tx buffer overflow!!\n");
+            }
+            }
+            else{
+            int tmp;
+            tmp = GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF - spidev->slave_tx_w_index;
+            missing = copy_from_user(&spidev->slave_tx_buf[spidev->slave_tx_w_index], buf, tmp);
+            if (missing!=0)
+            {
+            mutex_unlock(&spidev->slave_tx_buf_lock);
+                return -EFAULT;
+}
+if (0==missing)
+    {
+        spidev->slave_tx_w_index = 0;
+        if (0==spidev->slave_tx_r_index)
+        spidev->slave_tx_r_index++;
+        missing = copy_from_user(&spidev->slave_tx_buf[spidev->slave_tx_w_index], buf+tmp, count -tmp);
+       if (missing !=0)
+            {
+            mutex_unlock(&spidev->slave_tx_buf_lock);
+                return -EFAULT;
+}
+
+                spidev->slave_tx_w_index += (count - tmp);
+
+                if (spidev->slave_tx_r_index == spidev->slave_tx_w_index)
+                {
+            
+spidev->slave_tx_r_index++;
+            
+if(spidev->slave_tx_r_index >= GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF)
+            
+spidev->slave_tx_r_index = 0;
+            
+printk("[spi2 as slave err]slave tx buffer overflow!!\n");
+            }
+    }
+            }
+            mutex_unlock(&spidev->slave_tx_buf_lock);
+           
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+if (NULL ==spidev->spi->master->slave_write)
+{
+printk("[spi2 as slave err]spidev->spi->master->slave_write == NULL!!\n");
+return -EFAULT;
+}
+#endif
+
+            spidev->spi->master->slave_write(spidev->spi);
+return 0;
+}
+#endif
+
+mutex_lock(&spidev->buf_lock);
+missing = copy_from_user(spidev->buffer, buf, count);
+if (missing == 0) {
+status = spidev_sync_write(spidev, count);
+} else
+status = -EFAULT;
+mutex_unlock(&spidev->buf_lock);
+
+return status;
+}
+
+static int __devinit spidev_probe(struct spi_device *spi)
+{
+struct spidev_data
+*spidev;
+int  status;
+unsigned long
+minor;
+
+/* Allocate driver data */
+spidev = kzalloc(sizeof(*spidev), GFP_KERNEL);
+if (!spidev)
+return -ENOMEM;
+
+/* Initialize the driver data */
+spidev->spi = spi;
+spin_lock_init(&spidev->spi_lock);
+mutex_init(&spidev->buf_lock);
+#ifdef CONFIG_GTS_SPI2_SLAVE
+mutex_init(&spidev->slave_rx_buf_lock);
+mutex_init(&spidev->slave_tx_buf_lock);
+#endif
+
+INIT_LIST_HEAD(&spidev->device_entry);
+
+/* If we can allocate a minor number, hook up this device.
+* Reusing minors is fine so long as udev or mdev is working.
+*/
+mutex_lock(&device_list_lock);
+minor = find_first_zero_bit(minors, N_SPI_MINORS);
+if (minor < N_SPI_MINORS) {
+struct device *dev;
+
+spidev->devt = MKDEV(SPIDEV_MAJOR, minor);
+dev = device_create(spidev_class, &spi->dev, spidev->devt,
+    spidev, "spidev%d.%d",
+    spi->master->bus_num, spi->chip_select);
+status = IS_ERR(dev) ? PTR_ERR(dev) : 0;
+} else {
+dev_dbg(&spi->dev, "no minor number available!\n");
+status = -ENODEV;
+}
+if (status == 0) {
+set_bit(minor, minors);
+list_add(&spidev->device_entry, &device_list);
+}
+mutex_unlock(&device_list_lock);
+
+if (status == 0)
+spi_set_drvdata(spi, spidev);
+else
+kfree(spidev);
+#ifdef CONFIG_GTS_SPI2_SLAVE 
+    if (GTS_SPI_DEFAULT_SLAVE_ID==spi->master->bus_num)//jimmy_lee.2014.12.2 remark:we creat another buffer in slave mode
+    {
+    #ifdef CONFIG_GTS_SPI2_SLAVE 
+        
+    #endif
+        spidev->slave_rx_buf= kmalloc(GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF, GFP_KERNEL);
+if (!spidev->slave_rx_buf) {
+printk("gts spi slave err,we can't alloc mem for slave rx\n");
+status = -ENOMEM;
+kfree(spidev);
+}
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+memset(spidev->slave_rx_buf, 0xA5, sizeof(spidev->slave_rx_buf));
+#endif
+spidev->slave_rx_r_index = 0;
+spidev->slave_rx_w_index = 0;
+
+    #ifdef CONFIG_GTS_SPI2_SLAVE/*add by zgp*/
+    spidev->slave_tx_buf= kmalloc(GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF, GFP_KERNEL);
+if (!spidev->slave_tx_buf) {
+printk("gts spi slave err,we can't alloc mem for slave rx\n");
+status = -ENOMEM;
+kfree(spidev);
+}
+#ifdef CONFIG_GTS_DEBUG_SPI2_SLAVE
+memset(spidev->slave_tx_buf, 0xA5, sizeof(spidev->slave_tx_buf));
+#endif
+spidev->slave_tx_r_index = 0;
+spidev->slave_tx_w_index = 0;
+//spidev->slave_int_flag = 0;
+  #endif
+spidev->spi->master->buff_init(spi);
+    }
+#endif
+    
+return status;
+}
+
+修改代码路径：linux-3.0.101\include\linux\spi\spi.h
+#ifdef CONFIG_GTS_SPI2_SLAVE
+#define GTS_SPI_DEFAULT_SLAVE_ID 1
+#define GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF 4096
+
+#define GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF 4096
+#endif
+
+struct spi_master {
+struct device
+dev;
+
+struct list_head list;
+
+/* other than negative (== assign one dynamically), bus_num is fully
+* board-specific.  usually that simplifies to being SOC-specific.
+* example:  one SOC has three SPI controllers, numbered 0..2,
+* and one board's schematics might show it using SPI-2.  software
+* would normally use bus_num=2 for that controller.
+*/
+s16  bus_num;
+
+/* chipselects will be integral to many controllers; some others
+* might use board-specific GPIOs.
+*/
+u16  num_chipselect;
+
+/* some SPI controllers pose alignment requirements on DMAable
+* buffers; let protocol drivers know about these requirements.
+*/
+u16  dma_alignment;
+
+/* spi_device.mode flags understood by this controller driver */
+u16  mode_bits;
+
+/* other constraints relevant to this driver */
+u16  flags;
+#define SPI_MASTER_HALF_DUPLEX BIT(0)
+/* can't do full duplex */
+#define SPI_MASTER_NO_RX BIT(1)
+/* can't do buffer read */
+#define SPI_MASTER_NO_TX BIT(2)
+/* can't do buffer write */
+
+/* lock and mutex for SPI bus locking */
+spinlock_t
+bus_lock_spinlock;
+struct mutex
+bus_lock_mutex;
+
+/* flag indicating that the SPI bus is locked for exclusive use */
+bool  bus_lock_flag;
+
+/* Setup mode and clock, etc (spi driver may call many times).
+*
+* IMPORTANT:  this may be called when transfers to another
+* device are active.  DO NOT UPDATE SHARED REGISTERS in ways
+* which could break those transfers.
+*/
+int  (*setup)(struct spi_device *spi);
+
+/* bidirectional bulk transfers
+*
+* + The transfer() method may not sleep; its main role is
+*   just to add the message to the queue.
+* + For now there's no remove-from-queue operation, or
+*   any other request management
+* + To a given spi_device, message queueing is pure fifo
+*
+* + The master's main job is to process its message queue,
+*   selecting a chip then transferring data
+* + If there are multiple spi_device children, the i/o queue
+*   arbitration algorithm is unspecified (round robin, fifo,
+*   priority, reservations, preemption, etc)
+*
+* + Chipselect stays active during the entire message
+*   (unless modified by spi_transfer.cs_change != 0).
+* + The message transfers use clock and SPI mode parameters
+*   previously established by setup() for this device
+*/
+int  (*transfer)(struct spi_device *spi,
+struct spi_message *mesg);
+
+/* called on release() to free memory provided by spi_master */
+void  (*cleanup)(struct spi_device *spi);
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    void (*buff_init)(struct spi_device *spi);
+    //jimmy_lee.2014.12.2 remark:added for gts slave transfer
+    void (*slave_write)(struct spi_device *spi);
+#endif 
+};
+
+修改代码路径：linux-3.0.101\include\linux\spi\spidev.h
+
+#ifdef CONFIG_GTS_SPI2_SLAVE
+struct spidev_data {
+dev_t  devt;
+spinlock_t
+spi_lock;
+struct spi_device
+*spi;
+struct list_head
+device_entry;
+
+/* buffer is NULL unless this device is open (users > 0) */
+struct mutex
+buf_lock;
+unsigned  users;
+u8  *buffer;
+#ifdef CONFIG_GTS_SPI2_SLAVE
+    u8     *slave_rx_buf;/* the size defined by GTS_SPI_SLAVE_RX_BUFF_SIZE_DEF*/
+    int     slave_rx_w_index;
+    int     slave_rx_r_index;
+    struct mutex     slave_rx_buf_lock;
+
+    /*add by zgp*/
+    u8     *slave_tx_buf;/* the size defined by GTS_SPI_SLAVE_TX_BUFF_SIZE_DEF*/
+    int     slave_tx_w_index;
+    int     slave_tx_r_index;
+    struct mutex     slave_tx_buf_lock;
+
+#endif
+};
+#endif
