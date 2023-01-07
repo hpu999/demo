@@ -43,6 +43,8 @@ signal.c        增加linux系统编程的信号函数
 
 irq.c           基于 iMX6q 的 gpio 和 gpio 的中断编程
 
+gpio.c          应用程序操作gpio的ioctl方式示例
+
 k_time.c          内核中有关时间的API接口函数，内核层的休眠函数
 				可以测出调用获取时间函数的一次所要的时间,毫秒级
 
@@ -222,3 +224,4 @@ singleton/          两种c++单例模式的实现，并且保证了线程安全
 update-system/      更新系统的固件
 
 ndk-demo.tar.7z     Android程序编译NDK工具的使用案例
+
